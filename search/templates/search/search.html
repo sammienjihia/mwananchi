@@ -1,0 +1,24 @@
+{% block body %}
+    <h1>Please make a selection</h1>
+    {% if topics %}
+        <form method='' action=''>
+            <select class="form-control" id="topic" name='topic'>
+                <option>Select a topic</option>
+                {% for topic in topics %}
+                    <option value='{{topic.topic_id}}'>{{ topic.topic_title }}</option>
+                {% endfor %}
+            </select>
+
+                {% if keywords %}
+                    <select class="form-control" id="keyword" name='keyword'>
+                        <option>Select a keyword</option>
+                        {% for keyword in keywords %}
+                            <option value='{{keyword.key_word_id}}'>{{ keyword.key_word }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+
+        </form>
+
+    {% endif %}
+{% endblock %}

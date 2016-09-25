@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>Login and Register tabbed form - Bootsnipp.com</title>
+    <!-- loads the path to your static files-->
+    {% load staticfiles %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/style.css' %}" />
+    <script type="text/javascript" src="{% static 'accounts/js/form.js' %}"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+{% block body %}
+    <body>
+
+        <div class="container">
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+            <div class="panel-body">
+                    <a href=" {% url 'accounts:login'  %} " class="btn btn-primary" role="button">Login</a>
+                    <a href=" {% url 'accounts:register'  %} " class="btn btn-success" role="button">Register</a>
+            </div>
+    </div>
+</div>
+
+    </body>
+{% endblock %}
+
+</html>
