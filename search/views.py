@@ -12,4 +12,17 @@ def keywords(request):
     context = {"keywords": keywords}
     return render(request, 'search/search.html', context)
 
+def search(request):
+    context = {'keywords': None, 'topics': Topics.objects.all()}
 
+    if 'topics' in request.POST:
+        context['topics'] = request.POST['topics']
+        context['keywords'] = KeyWords.objects.filter(topic=context['topics'])
+    if 'keywords' in request.POST:
+        context['keywords'] = request.POST['keywords']
+
+    else:
+        context['keywords'] = []
+        context['topics'] = None
+
+    return render(request, 'search/search.html', context)

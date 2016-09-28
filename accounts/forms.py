@@ -28,6 +28,7 @@ class UserLoginForm(forms.Form):
         return super(UserLoginForm, self).clean(*arg, **kwargs)
 
 class UserRegisterForm(forms.ModelForm):
+    username = forms.CharField(label='Username')
     email = forms.EmailField(label='Email address')
     password = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(widget=forms.PasswordInput, label='Confirm Password')
@@ -39,6 +40,21 @@ class UserRegisterForm(forms.ModelForm):
             'password',
             'password2'
         ]
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=self.cleaned_data.get('username')).count():
+            raise forms.ValidationError("This username is already in use")
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email = self.cleaned_data.get('email')).count():
+            raise forms.ValidationError("This email is already in use")
+        return email
+
+
+
 
     def clean_password2(self):
         password = self.cleaned_data.get('password')

@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'subscribe.apps.SubscribeConfig',
+    'sms.apps.SmsConfig',
     'search.apps.SearchConfig',
     'accounts.apps.AccountsConfig',
     'django.contrib.admin',
