@@ -5,7 +5,7 @@ from search.models import Topics
 from subscribe.models import Subscribers
 from .forms import SendsmsForm
 from django.shortcuts import render, redirect
-from africastalking.AfricasTalkingGateway import (AfricasTalkingGateway, AfricasTalkingGatewayException)
+from mwananchi.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException
 
 
 
@@ -23,8 +23,9 @@ def sendsmsview (request):
             subscribb_topic = request.POST['subscribed_topic']
 
 
-            username = "MyAfricasTalkingUsername"
-            apikey = "MyAfricasTalkingAPIKey"
+            username = "SAMMIENJIHIA"
+            apikey = "9898e481449e39a6051b3d87e07f4de171bedc93a046dd166c0dad2d0d9b6bdc"
+
 
             # numbers = Subscribers.objects.values_list('mobile_number', flat=True).distinct()
             # Topics.objects.values_list('topic_id', flat=True)
@@ -33,26 +34,30 @@ def sendsmsview (request):
             numbers = Subscribers.objects.filter(subscribed_topic_id=subscribb_topic).values_list('mobile_number',
                                                                                                  flat=True).distinct()
 
-            to = numbers
+            #to = numbers
 
-            message = "I'm a lumberjack and it's ok, I sleep all night and I work all day"
+            numbersto = [numbers.encode("utf8") for numbers in
+                            Subscribers.objects.filter(subscribed_topic_id=subscribb_topic).values_list('mobile_number',
+                                                                                                        flat=True).distinct()]
+            for number in numbersto:
+                to = number
+                message = "I'm a lumberjack and it's ok, I sleep all night and I work all day"
 
-            gateway = AfricasTalkingGateway(username, apikey)
+                gateway = AfricasTalkingGateway(username, apikey)
 
-            try:
+                try:
 
-                results = gateway.sendMessage(to, message)
+                    results = gateway.sendMessage(to, message)
 
-                for recipient in results:
-                    # status is either "Success" or "error message"
-                    print 'number=%s;status=%s;messageId=%s;cost=%s' % (recipient['number'],
-                                                                        recipient['status'],
-                                                                        recipient['messageId'],
-                                                                        recipient['cost'])
-            except AfricasTalkingGatewayException, e:
-                print 'Encountered an error while sending: %s' % str(e)
+                    for recipient in results:
+                        # status is either "Success" or "error message"
+                        print 'number=%s;status=%s;messageId=%s;cost=%s' % (recipient['number'],
+                                                                            recipient['status'],
+                                                                            recipient['messageId'],
+                                                                            recipient['cost'])
+                except AfricasTalkingGatewayException, e:
+                    print 'Encountered an error while sending: %s' % str(e)
 
-            return HttpResponse( subscribb_topic)
 
     context = {"form": form, "title": title}
     return HttpResponse(template.render(context, request))
