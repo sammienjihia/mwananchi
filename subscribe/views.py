@@ -8,19 +8,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 
-def subscriptionview(request):
-    TOPIC_CHOICES = Topics.objects.all()
 
-
-
-
-    #subscription = request.POST['subscribe']
-    subscription = request.POST.get("subscribe", "Guest (or whatever)")
-
-    template = loader.get_template('subscribe/subscriptionform.html')
-    context = {"subscription": subscription}
-
-    return HttpResponse(template.render(context, request))
 
 def subscriptionview (request):
     title = "Subscribe"
