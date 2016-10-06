@@ -1,37 +1,63 @@
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}" />
+    <script href="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 {% block body %}
-    <h1>Please make a selection</h1>
-    {% if topics %}
-        <form method='' action=''>
-            <select class="form-control" id="topic" name='topic'>
-                <option>Select a topic</option>
-                {% for topic in topics %}
-                    <option value='{{topic.topic_id}}'>{{ topic.topic_title }}</option>
-                {% endfor %}
-            </select>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ title }}</h3>
+                </div>
+                <div class="panel-body">
 
 
-            <select class="form-control" id="keyword" name='keyword'>
-                <option>Select a keyword</option>
-                {% for keyword in keywords %}
-                    <option value='{{keyword.key_word_id}}'>{{ keyword.key_word }}</option>
-                {% endfor %}
-            </select>
+                        {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                        {% endif %}
+
+                        <form action=" " method="get" enctype="multipart/form-data">
+
+                            {% csrf_token %}
+                            {{ form|crispy }}
+
+                            <input type="submit" class="btn btn-default" value="{{ title }}">
+
+                        </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+    function json_to_select(url, select_selector) {
+/*
+ Fill a select input field with data from a getJSON call
+ Inspired by: http://stackoverflow.com/questions/1388302/create-option-on-the-fly-with-jquery
+*/
+    $.getJSON(url, function(data) {
+    var opt=$(select_selector);
+    var old_val=opt.val();
+        opt.html('');
+        $.each(data, function () {
+            opt.append($('<option/>').val(this.id).text(this.value));
+        });
+        opt.val(old_val);
+        opt.change();
+    })
+}
 
 
-        <select name="country" id="select_country">
-            {% for c in topics %}
-                <option value="{{ c.val }}"{% ifequal c.val topics %} selected="selected"{% endifequal %}>{{ c.topic_title }}</option>
-            {% endfor %}
-        </select>
-
-        <select name="state" id="select_state">
-            {% for s in keywords %}
-                <option value="{{ s.val }} {{ s.key_word_id }}"{% ifequal s.val keywords %} selected="selected"{% endifequal %}>{{ s.key_word }}</option>
-            {% endfor %}
-        </select>
-
-
-        </form>
-
-    {% endif %}
+   $(function(){
+     $('#id_parent').change(function(){
+       json_to_select('search/topic_to_keywords/?topic=' + $(this).val(), '#id_child');
+     })
+    });
+    </script>
 {% endblock %}

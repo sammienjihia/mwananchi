@@ -1,28 +1,24 @@
+from models import Topics, KeyWords
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
-from .models import KeyWords, Topics
+from django.template import loader
+from .forms import CascadeForm
+import simplejson
 
-def topics(request):
-    topics = Topics.objects.all()
-    context = {"topics": topics}
-    return render(request, 'search/search.html', context)
 
-def keywords(request):
-    keywords = KeyWords.objects.all()
-    context = {"keywords": keywords}
-    return render(request, 'search/search.html', context)
 
-def search(request):
-    context = {'keywords': None, 'topics': Topics.objects.all()}
 
-    if 'topics' in request.POST:
-        context['topics'] = request.POST['topics']
-        context['keywords'] = KeyWords.objects.filter(topic=context['topics'])
-    if 'keywords' in request.POST:
-        context['keywords'] = request.POST['keywords']
+def topic_to_keywords(request):
+    topic = request.GET.get('topic')
+    ret = []
+    title = "Search"
+    template = loader.get_template('search/search.html')
+    form = CascadeForm(request.GET or None)
+    context = {"form": form, "title": title}
 
-    else:
-        context['keywords'] = []
-        context['topics'] = None
+    if topic:
+        for keywords in KeyWords.objects.filter(topic_id=topic):
+            ret.append(dict(id=keywords.key_word_id, value=unicode(keywords)))
+    if len(ret)!=1:
+        ret.insert(0, dict(id='', value='---'))
 
-    return render(request, 'search/search.html', context)
+    return HttpResponse(simplejson.dumps(ret))
