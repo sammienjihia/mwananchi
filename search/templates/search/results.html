@@ -1,3 +1,4 @@
+
 {% block body %}
 <!DOCTYPE html>
 <html lang="en">
@@ -15,15 +16,19 @@
             <th>Hashtags</th>
             <th>Sentiments</th>
         </tr>
-        {% for tweet in engine.search %}
-            <tr>
-                <td>{{ tweet.text }}</td>
-                <td>{{ tweet.author }}</td>
-                <td>{{ tweet.date }}</td>
-                <td>{{ tweet.hashtags }}</td>
-                <td>{{ tweet.sentiment }}</td>
-            </tr>
-        {% endfor %}
+
+    {% if newdata %}
+        <h3>Here is your search results:</h3>
+        <ul>
+            {% for tweet in newdata %}
+                <p>{{ tweet.text }}</p>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h3>You have no data</h3>
+    {% endif %}
+
+
     </table>
 
 </body>

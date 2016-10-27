@@ -36,6 +36,7 @@ from django.shortcuts import redirect
 
 
 def searchwordview(request):
+    global jsonData
     jsonData = []
     title = "Search"
     template = loader.get_template('search/search.html')
@@ -65,13 +66,14 @@ def searchwordview(request):
 
                 for tweet in engine.search(newsearchword, start=prev, count=10, cached=False):
                     print
-                    print HttpResponse(tweet.text)
+                    print tweet.text
                     print tweet.author
                     print tweet.date
                     print hashtags(tweet.text)
                     print sentiment(tweet.text)
                     print
 
+                    global newdata
                     jsonData.append({'text':tweet.text, 'author':tweet.author, 'date':tweet.date, 'hashtags':hashtags(tweet.text), 'sentiments':sentiment(tweet.text)})
 
                     if len(table) == 0 or tweet.id not in index:
@@ -85,10 +87,14 @@ def searchwordview(request):
             print "Total results:  ", len(table)
             print
         return HttpResponse(json.dumps(jsonData))
+        #return redirect("results/")
 
 
     context = {"form": form, "title": title}
     return HttpResponse( template.render(context, request))
 
-def thanks(request):
-    return HttpResponse('Thank you for your message.')
+def results( jsonData):
+
+    template = loader.get_template('search/results.html')
+    context = { "newdata":jsonData}
+    return HttpResponse( template.render(context))
