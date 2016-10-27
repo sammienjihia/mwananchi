@@ -9,24 +9,29 @@
 <body>
 
     <table>
+    <thead>
         <tr>
             <th>Text</th>
             <th>Author</th>
             <th>Date</th>
-            <th>Hashtags</th>
-            <th>Sentiments</th>
-        </tr>
 
+        </tr>
+    </thead>
+    <tbody>
     {% if newdata %}
         <h3>Here is your search results:</h3>
-        <ul>
+        <tr>
             {% for tweet in newdata %}
-                <p>{{ tweet.text }}</p>
+                <td>{{ tweet.text }}</td>
+                <td>{{ tweet.author }}</td>
+                <td>{{ tweet.date }}</td>
+
             {% endfor %}
-        </ul>
+        </tr>
     {% else %}
         <h3>You have no data</h3>
     {% endif %}
+    </tbody>
 
 
     </table>
