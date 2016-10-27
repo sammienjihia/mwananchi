@@ -8,6 +8,7 @@ from pattern.db  import Datasheet, pprint, pd
 from pattern.en import sentiment, polarity, subjectivity, positive
 import json
 
+from searchfunction import searchingfunction
 from django.shortcuts import redirect
 
 
@@ -71,10 +72,12 @@ def searchwordview(request):
                     print tweet.date
                     print hashtags(tweet.text)
                     print sentiment(tweet.text)
+                    print polarity(tweet.text)
                     print
 
                     global newdata
-                    jsonData.append({'text':tweet.text, 'author':tweet.author, 'date':tweet.date, 'hashtags':hashtags(tweet.text), 'sentiments':sentiment(tweet.text)})
+                    jsonData.append({'text':tweet.text, 'author':tweet.author, 'date':tweet.date, 'hashtags':hashtags(tweet.text),
+                                     'sentiments':sentiment(tweet.text), 'polarity':polarity(tweet.text)})
 
                     if len(table) == 0 or tweet.id not in index:
                         table.append([tweet.id, tweet.text])
@@ -82,19 +85,19 @@ def searchwordview(request):
 
                     prev = tweet.id
 
-            table.save(pd("sammy.csv"))
+            #table.save(pd("sammy.csv"))
 
             print "Total results:  ", len(table)
             print
-        return HttpResponse(json.dumps(jsonData))
-        #return redirect("results/")
+        #return HttpResponse(json.dumps(jsonData))
+        return redirect("results/")
 
 
     context = {"form": form, "title": title}
     return HttpResponse( template.render(context, request))
 
-def results( jsonData):
-
+def results(jsonData1):
+    jsonData2 =searchingfunction(jsonData1)
     template = loader.get_template('search/results.html')
-    context = { "newdata":jsonData}
+    context = { "newdata":jsonData2}
     return HttpResponse( template.render(context))
