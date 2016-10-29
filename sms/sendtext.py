@@ -1,36 +1,39 @@
 # Be sure to import the helper gateway class
 from africastalking.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException
 
-# Specify your login credentials
-username = 'MyUsername'
-apikey = 'MyApikey'
+def receivedsms(message1):
 
-# Create a new instance of our awesome gateway class
-gateway = AfricasTalkingGateway(username, apikey)
+    message1 = []
 
-# Any gateway errors will be captured by our custom Exception class below,
-# so wrap the call in a try-catch block
-try:
-    # Our gateway will return 10 messages at a time back to you, starting with
-    # what you currently believe is the lastReceivedId. Specify 0 for the first
-    # time you access the gateway, and the ID of the last message we sent you
-    # on subsequent results
-    lastReceivedId = 0;
+    username = "karanjaeric"
+    apikey = "54e6934ca4fb2b2f675fc2534246719efb37389d5341a590d6c3a042f4d83275"
 
-    while True:
-        messages = gateway.fetchMessages(lastReceivedId)
+    # Create a new instance of our awesome gateway class
+    gateway = AfricasTalkingGateway(username, apikey)
 
-        for message in messages:
-            print 'from=%s;to=%s;date=%s;text=%s;linkId=%s;' % (message['from'],
-                                                                message['to'],
-                                                                message['date'],
-                                                                message['text'],
-                                                                message['linKId']
-                                                                )
-            lastReceivedId = message['id']
-        if len(messages) == 0:
-            break
+    # Any gateway errors will be captured by our custom Exception class below,
+    # so wrap the call in a try-catch block
+    try:
+        # Our gateway will return 10 messages at a time back to you, starting with
+        # what you currently believe is the lastReceivedId. Specify 0 for the first
+        # time you access the gateway, and the ID of the last message we sent you
+        # on subsequent results
+        lastReceivedId = 38153692
+
+        while True:
+            messages = gateway.fetchMessages(lastReceivedId)
+
+            for message in messages:
+                #this is for test purposes
+                keyword = message['text'].split()
+                message1.append({'from': message['from'], 'to': message['to'], 'date': message['date'], 'text': message['text'],'id': message['id'], 'keyword':keyword[0]})
+
+                print keyword[0]
+                lastReceivedId = message['id']
+            if len(messages) == 0:
+                break
 
 
-except AfricasTalkingGatewayException, e:
-    print 'Encountered an error while fetching messages: %s' % str(e)
+    except AfricasTalkingGatewayException, e:
+        print 'Encountered an error while fetching messages: %s' % str(e)
+    return (message1)

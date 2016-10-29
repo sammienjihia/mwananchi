@@ -66,13 +66,14 @@ def searchwordview(request):
                 print i
 
                 for tweet in engine.search(newsearchword, start=prev, count=10, cached=False):
+                    pol = polarity(tweet.text)
                     print
                     print tweet.text
                     print tweet.author
                     print tweet.date
                     print hashtags(tweet.text)
                     print sentiment(tweet.text)
-                    print polarity(tweet.text)
+                    print pol
                     print
 
                     global newdata
@@ -89,6 +90,7 @@ def searchwordview(request):
 
             print "Total results:  ", len(table)
             print
+            #return (jsonData)
         #return HttpResponse(json.dumps(jsonData))
         return redirect("results/")
 

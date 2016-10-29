@@ -7,8 +7,9 @@ from search.models import Topics
 class Insms(models.Model):
     sender = models.CharField(max_length=255)
     reciever = models.CharField(max_length=255)
-    recieved_date = models.DateTimeField()
+    date = models.DateTimeField()
     text = models.CharField(max_length=255)
+    messageidnumber = models.CharField(max_length=255)
 
     class Meta:
         db_table = "Insms"

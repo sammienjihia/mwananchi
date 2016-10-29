@@ -6,6 +6,7 @@ from subscribe.models import Subscribers
 from .forms import SendsmsForm
 from django.shortcuts import render, redirect
 from mwananchi.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException
+from sendtext import receivedsms
 
 
 
@@ -61,6 +62,12 @@ def sendsmsview (request):
 
     context = {"form": form, "title": title}
     return HttpResponse(template.render(context, request))
+
+def insmsview(messages1):
+    messages2 = receivedsms(messages1)
+    template = loader.get_template('sms/results.html')
+    context = {"inmessages": messages2}
+    return HttpResponse(template.render(context))
 
 
 

@@ -14,20 +14,35 @@
             <th>Text</th>
             <th>Author</th>
             <th>Date</th>
+            <th>Polarity</th>
 
         </tr>
     </thead>
     <tbody>
     {% if newdata %}
         <h3>Here is your search results:</h3>
-        <tr>
+
             {% for tweet in newdata %}
-                <td>{{ tweet.text }}</td>
-                <td>{{ tweet.author }}</td>
-                <td>{{ tweet.date }}</td>
+                <tr>
+                    <td>{{ tweet.text }}</td>
+                    <td>{{ tweet.author }}</td>
+                    <td>{{ tweet.date }}</td>
+                    {% if tweet.sentiments == 0.0 %}
+                        <td>neutral</td>
+                        <td>{{ tweet.sentiments }}</td>
+                    {% elif tweet.sentiments < 0 %}
+                        <td>negative</td>
+                        <td>{{ tweet.sentiments }}</td>
+                    {% else %}
+                        <td>positive</td>
+                        <td>{{ tweet.sentiments }}</td>
+                    {% endif %}
+
+
+                </tr>
 
             {% endfor %}
-        </tr>
+
     {% else %}
         <h3>You have no data</h3>
     {% endif %}

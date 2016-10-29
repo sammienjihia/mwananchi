@@ -1,0 +1,48 @@
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+    <table>
+    <thead>
+        <tr>
+            <th>From</th>
+            <th>To</th>
+            <th>Date</th>
+            <th>Message</th>
+            <th>Message id</th>
+            <th>Keywords</th>
+
+        </tr>
+    </thead>
+    <tbody>
+    {% if inmessages %}
+        <h3>Here is your inbox results:</h3>
+            {% for message in inmessages %}
+                <tr>
+                    <td>{{ message.from }}</td>
+                    <td>{{ message.to }}</td>
+                    <td>{{ message.date }}</td>
+                    <td>{{ message.text }}</td>
+                    <td>{{ message.id }}</td>
+                    <td>{{ message.keyword }}</td>
+                </tr>
+
+            {% endfor %}
+
+    {% else %}
+        <h3>You have no messages</h3>
+    {% endif %}
+    </tbody>
+
+
+    </table>
+
+</body>
+</html>
+{% endblock %}

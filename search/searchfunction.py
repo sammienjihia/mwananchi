@@ -43,11 +43,14 @@ def searchingfunction(jsonData):
     for i in range(2):
         print i
 
-        for tweet in engine.search("Sammy", start=prev, count=5, cached=False):
+        for tweet in engine.search("wake", start=prev, count=5, cached=False):
+
+
+            sentimentpolarity = polarity(tweet.text)
 
 
 
-            jsonData1.append({'text':tweet.text, 'author':tweet.author, 'date':tweet.date, 'hashtags':hashtags(tweet.text), 'sentiments':sentiment(tweet.text)})
+            jsonData1.append({'text':tweet.text, 'author':tweet.author, 'date':tweet.date, 'hashtags':hashtags(tweet.text), 'sentiments':sentimentpolarity})
 
             if len(table) == 0 or tweet.id not in index:
                 table.append([tweet.id, tweet.text])
