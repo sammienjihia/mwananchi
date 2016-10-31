@@ -43,7 +43,7 @@ def searchingfunction(jsonData):
     for i in range(2):
         print i
 
-        for tweet in engine.search("wake", start=prev, count=5, cached=False):
+        for tweet in engine.search("#HeyLarry", start=prev, count=5, cached=False):
 
 
             sentimentpolarity = polarity(tweet.text)
@@ -59,11 +59,17 @@ def searchingfunction(jsonData):
             prev = tweet.id
 
 
+    tweetcount = len(jsonData1)
+    print "These is the total tweet count returned:  ", tweetcount
 
-    print "Total results:  ", len(table)
 
 
 
     #return (json.dumps(jsonData1))
     return (jsonData1)
+
+def tweetcount(tweetCount):
+    tweetCount2 = len(tweetCount)
+    return (tweetCount2)
+
 
