@@ -1,5 +1,7 @@
 # Be sure to import the helper gateway class
 from africastalking.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException
+from pattern.en import sentiment, polarity, subjectivity, positive
+
 
 def receivedsms(message1):
 
@@ -18,7 +20,7 @@ def receivedsms(message1):
         # what you currently believe is the lastReceivedId. Specify 0 for the first
         # time you access the gateway, and the ID of the last message we sent you
         # on subsequent results
-        lastReceivedId = 38153692
+        lastReceivedId = 38217145;
 
         while True:
             messages = gateway.fetchMessages(lastReceivedId)
@@ -26,7 +28,7 @@ def receivedsms(message1):
             for message in messages:
                 #this is for test purposes
                 keyword = message['text'].split()
-                message1.append({'from': message['from'], 'to': message['to'], 'date': message['date'], 'text': message['text'],'id': message['id'], 'keyword':keyword[0]})
+                message1.append({'from': message['from'], 'to': message['to'], 'date': message['date'], 'text': message['text'],'polarity': polarity(message['text']), 'keyword':keyword[0]})
 
                 print keyword[0]
                 lastReceivedId = message['id']
