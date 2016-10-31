@@ -20,8 +20,9 @@
     </thead>
     <tbody>
     {% if newdata %}
-        <h3>Here is your search results:</h3>
 
+        <h3>Here is your search results:</h3>
+            <h4>Total tweets returned: {{ tweetcount }}</h4>
             {% for tweet in newdata %}
                 <tr>
                     <td>{{ tweet.text }}</td>
@@ -31,10 +32,10 @@
                         <td>neutral</td>
                         <td>{{ tweet.sentiments }}</td>
                     {% elif tweet.sentiments < 0 %}
-                        <td>negative</td>
+                        <td style="background-color: #761c19">negative</td>
                         <td>{{ tweet.sentiments }}</td>
                     {% else %}
-                        <td>positive</td>
+                        <td style="background-color: #4cae4c">positive</td>
                         <td>{{ tweet.sentiments }}</td>
                     {% endif %}
 
