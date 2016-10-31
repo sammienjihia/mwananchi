@@ -15,7 +15,8 @@
             <th>To</th>
             <th>Date</th>
             <th>Message</th>
-            <th>Message id</th>
+            <th>sentiment</th>
+            <th>Polarity value</th>
             <th>Keywords</th>
 
         </tr>
@@ -29,7 +30,17 @@
                     <td>{{ message.to }}</td>
                     <td>{{ message.date }}</td>
                     <td>{{ message.text }}</td>
-                    <td>{{ message.id }}</td>
+                    {% if message.polarity == 0.0 %}
+                        <td>neutral</td>
+                        <td>{{ message.polarity }}</td>
+                    {% elif message.polarity < 0 %}
+                        <td style="background-color: #761c19">negative</td>
+                        <td>{{ message.polarity }}</td>
+                    {% else %}
+                        <td style="background-color: #4cae4c">positive</td>
+                        <td>{{ message.polarity }}</td>
+                    {% endif %}
+
                     <td>{{ message.keyword }}</td>
                 </tr>
 
