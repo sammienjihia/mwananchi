@@ -9,6 +9,7 @@ from pattern.en import sentiment, polarity, subjectivity, positive
 import json
 
 from searchfunction import searchingfunction
+from searchfunction import tweetcount
 from django.shortcuts import redirect
 
 
@@ -100,6 +101,7 @@ def searchwordview(request):
 
 def results(jsonData1):
     jsonData2 =searchingfunction(jsonData1)
+    tweetcount3 = tweetcount(jsonData2)
     template = loader.get_template('search/results.html')
-    context = { "newdata":jsonData2}
+    context = { "newdata":jsonData2, "tweetcount":tweetcount3}
     return HttpResponse( template.render(context))
