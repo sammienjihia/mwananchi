@@ -16,16 +16,24 @@ from django.http import HttpResponse
 
 
 
+def getusersearchword(request):
+    global newsearchword1
+    newsearchword1 = ""
+
+    if (request.method == 'POST'):
+        newsearchword1 = request.POST['searchword']
+
+    return newsearchword1
 
 
-def searchingfunction(jsonData):
+
+def searchingfunction(newsearchword):
+
+    newsearchword1
 
 
     jsonData1 = []
-
-
-
-
+    global sentimentpolarity
 
     try:
         table = Datasheet.load(pd("sammy.csv"))
@@ -43,7 +51,7 @@ def searchingfunction(jsonData):
     for i in range(2):
         print i
 
-        for tweet in engine.search("#HeyLarry", start=prev, count=5, cached=False):
+        for tweet in engine.search(newsearchword1, start=prev, count=5, cached=False):
 
 
             sentimentpolarity = polarity(tweet.text)
@@ -59,8 +67,7 @@ def searchingfunction(jsonData):
             prev = tweet.id
 
 
-    tweetcount = len(jsonData1)
-    print "These is the total tweet count returned:  ", tweetcount
+
 
 
 
@@ -71,5 +78,27 @@ def searchingfunction(jsonData):
 def tweetcount(tweetCount):
     tweetCount2 = len(tweetCount)
     return (tweetCount2)
+
+def postweets(jsonData1):
+    postweets = 0
+    for tweet in searchingfunction(jsonData1):
+        if polarity(tweet['text']) > 0:
+            postweets +=1
+    return (postweets)
+
+def negtweets(jsonData1):
+    negtweets = 0
+    for tweet in searchingfunction(jsonData1):
+        if polarity(tweet['text']) < 0:
+            negtweets +=1
+    return (negtweets)
+
+def neutweets(jsonData1):
+    neutweets = 0
+    for tweet in searchingfunction(jsonData1):
+        if polarity(tweet['text']) == 0:
+            neutweets +=1
+    return (neutweets)
+
 
 
