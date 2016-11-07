@@ -3,14 +3,34 @@ from django.http import HttpResponse
 from django.template import loader
 from search.models import Topics
 from subscribe.models import Subscribers
+from .models import Insms
 from .forms import SendsmsForm
 from django.shortcuts import render, redirect
 from mwananchi.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException
-from sendtext import receivedsms
+from sendtext import receivedsms, smscount, posisms, negsms, neutsms
+from search.searchfunction import getusersearchword
+from .forms import SmssearchForm
+
 
 
 
 # Create your views here.
+
+def smssearchwordview(newsearchword1):
+    global searchingword
+    searchingword = ""
+    title = "Search"
+    template = loader.get_template('sms/smssearch.html')
+    form = SmssearchForm()
+    searchingword = getusersearchword(newsearchword1)
+    print searchingword
+    if searchingword:
+        return redirect("insms/")
+    else:
+        print "getusersearchword() returned an empty object"
+
+    context = {"form": form, "title": title}
+    return HttpResponse( template.render(context, newsearchword1))
 
 
 
@@ -63,10 +83,16 @@ def sendsmsview (request):
     context = {"form": form, "title": title}
     return HttpResponse(template.render(context, request))
 
+
 def insmsview(messages1):
+    messages3 = Insms.objects.filter(keyword=searchingword)
+    smscount1 = smscount(messages3)
+    posisms1 = posisms(messages3)
+    negsms1 = negsms(messages3)
+    neutsms1 = neutsms(messages3)
     messages2 = receivedsms(messages1)
     template = loader.get_template('sms/results.html')
-    context = {"inmessages": messages2}
+    context = {"inmessages": messages3, "smscount": smscount1, "posisms": posisms1, "negsms": negsms1, "neutsms": neutsms1}
     return HttpResponse(template.render(context))
 
 

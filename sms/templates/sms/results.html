@@ -24,9 +24,13 @@
     <tbody>
     {% if inmessages %}
         <h3>Here is your inbox results:</h3>
+            <h4>Total sms' returned: {{ smscount }}</h4>
+            <h4>Total positive sms': {{ posisms }}</h4>
+            <h4>Total negative sms': {{ negsms }}</h4>
+            <h4>Total neutral sms': {{ neutsms }}</h4>
             {% for message in inmessages %}
                 <tr>
-                    <td>{{ message.from }}</td>
+                    <td>{{ message.sender }}</td>
                     <td>{{ message.to }}</td>
                     <td>{{ message.date }}</td>
                     <td>{{ message.text }}</td>
