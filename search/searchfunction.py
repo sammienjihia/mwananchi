@@ -7,15 +7,6 @@ from django.http import HttpResponse
 
 
 
-
-
-
-
-
-
-
-
-
 def getusersearchword(request):
     global newsearchword1
     newsearchword1 = ""
@@ -51,7 +42,7 @@ def searchingfunction(newsearchword):
     for i in range(2):
         print i
 
-        for tweet in engine.search(newsearchword1, start=prev, count=5, cached=False):
+        for tweet in engine.search(newsearchword1, start=prev, count=300, cached=False):
 
 
             sentimentpolarity = polarity(tweet.text)
@@ -65,11 +56,6 @@ def searchingfunction(newsearchword):
                 index.add(tweet.id)
 
             prev = tweet.id
-
-
-
-
-
 
 
     #return (json.dumps(jsonData1))
