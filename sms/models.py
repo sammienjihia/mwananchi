@@ -6,10 +6,11 @@ from search.models import Topics
 # Create your models here.
 class Insms(models.Model):
     sender = models.CharField(max_length=255)
-    reciever = models.CharField(max_length=255)
+    to = models.CharField(max_length=255)
     date = models.DateTimeField()
     text = models.CharField(max_length=255)
-    messageidnumber = models.CharField(max_length=255)
+    keyword = models.CharField(max_length=255)
+    polarity = models.FloatField(max_length=255)
 
     class Meta:
         db_table = "Insms"
