@@ -16,6 +16,8 @@ class SendsmsForm(forms.ModelForm):
             'subscribed_topic'
         ]
 
+class SmssearchForm(forms.Form):
+    searchword = forms.CharField(max_length=255, label='Enter your search word')
 
 
 
