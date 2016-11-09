@@ -8,22 +8,26 @@ from .forms import SendsmsForm
 from django.shortcuts import render, redirect
 from mwananchi.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException
 from sendtext import receivedsms, smscount, posisms, negsms, neutsms
-from search.searchfunction import getusersearchword
+from sendtext import getusersearchword
 from .forms import SmssearchForm
+from datetime import datetime, timedelta
+from django.contrib.auth.decorators import login_required
 
 
 
 
 # Create your views here.
-
+@login_required
 def smssearchwordview(newsearchword1):
-    global searchingword
+    global searchingword, option
     searchingword = ""
+    option = ""
     title = "Search"
     template = loader.get_template('sms/smssearch.html')
     form = SmssearchForm()
-    searchingword = getusersearchword(newsearchword1)
+    searchingword, option = getusersearchword(newsearchword1)
     print searchingword
+    print option
     if searchingword:
         return redirect("insms/")
     else:
@@ -85,7 +89,36 @@ def sendsmsview (request):
 
 
 def insmsview(messages1):
-    messages3 = Insms.objects.filter(keyword=searchingword)
+    global messages3
+    print option
+    messages3 = ""
+
+    if option == "0":
+        N = 30000
+        start_date = datetime.now()
+        date_N_days_ago = datetime.now() - timedelta(days=N)
+        messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date))
+
+    elif option == "1":
+        print "hahahahhahahah"
+        N = 7
+        start_date = datetime.now()
+        date_N_days_ago = datetime.now() - timedelta(days=N)
+        messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date))
+    elif option =="2":
+        N = 30
+        start_date = datetime.now()
+        date_N_days_ago = datetime.now() - timedelta(days=N)
+        messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date))
+    elif option =="3":
+        N = 360
+        start_date = datetime.now()
+        date_N_days_ago = datetime.now() - timedelta(days=N)
+        messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date))
+    else:
+        print "you have not selected anything"
+
+    #messages3 = Insms.objects.filter(keyword=searchingword)
     smscount1 = smscount(messages3)
     posisms1 = posisms(messages3)
     negsms1 = negsms(messages3)
