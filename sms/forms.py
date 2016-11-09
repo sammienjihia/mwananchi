@@ -1,6 +1,6 @@
 from django import forms
 from models import Sms
-from search.models import Topics
+from search.models import Topics, Datefilters
 
 
 
@@ -18,6 +18,8 @@ class SendsmsForm(forms.ModelForm):
 
 class SmssearchForm(forms.Form):
     searchword = forms.CharField(max_length=255, label='Enter your search word')
+    select_option = forms.ModelChoiceField(queryset=Datefilters.objects.all(), widget=forms.Select(), label='Filter With')
+
 
 
 
