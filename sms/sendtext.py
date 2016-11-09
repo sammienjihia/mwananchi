@@ -3,6 +3,21 @@ from africastalking.AfricasTalkingGateway import AfricasTalkingGateway, AfricasT
 from pattern.en import sentiment, polarity, subjectivity, positive
 from models import Insms
 
+
+def getusersearchword(request):
+
+    global newsearchword1, newoption1
+    newoption1 = ""
+    newsearchword1 = ""
+
+    if (request.method == 'POST'):
+        newsearchword1 = request.POST['searchword']
+        newoption1 = request.POST['select_option']
+    return newsearchword1 , newoption1
+
+
+
+
 def receivedsms(message1):
 
     message1 = []
