@@ -48,7 +48,7 @@ def searchwordview(newsearchword1):
 def results(newsearchword):
 
     jsonData2 = searchingfunction(newsearchword)
-    print "sammy"
+
 
     postweets2 = postweets(postweets)
     negtweets2 = negtweets(negtweets)

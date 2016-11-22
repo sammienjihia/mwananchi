@@ -21,7 +21,7 @@ def getusersearchword(request):
 def searchingfunction(newsearchword):
 
     newsearchword1
-
+    print "I am running again"
 
     jsonData1 = []
     global sentimentpolarity
@@ -37,12 +37,11 @@ def searchingfunction(newsearchword):
     engine = Twitter(language="en")
 
     prev = None
-    #newsearchword = "Sammy"
 
     for i in range(2):
         print i
 
-        for tweet in engine.search(newsearchword1, start=prev, count=300, cached=False):
+        for tweet in engine.search(newsearchword1, start=prev, count=5, cached=False):
 
 
             sentimentpolarity = polarity(tweet.text)
@@ -57,8 +56,10 @@ def searchingfunction(newsearchword):
 
             prev = tweet.id
 
+    global jsonData
+    jsonData = []
+    jsonData = (json.dumps(jsonData1))
 
-    #return (json.dumps(jsonData1))
     return (jsonData1)
 
 def tweetcount(tweetCount):
@@ -85,6 +86,7 @@ def neutweets(jsonData1):
         if polarity(tweet['text']) == 0:
             neutweets +=1
     return (neutweets)
+
 
 
 

@@ -1,5 +1,5 @@
 
-{% block body %}
+{% extends 'accounts/base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,24 +13,105 @@
 
 
 </head>
+{% block body %}
 <body>
-<h3>Here is your search results:</h3>
-            <h4>Total tweets returned: {{ tweetcount }}</h4>
-            <h4>Total positive tweets: {{ postweets }}</h4>
-            <h4>Total negative tweets: {{ negtweets }}</h4>
-            <h4>Total neutral tweets: {{ neutweets }}</h4>
-            <p>
-                Show pages
-                <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page1');">Overview</span>,
-                <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page2');">Charts</span>,
-            </p>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Mwananchi</a>
+        </div>
+
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li>
+                    <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                </li>
+                <li class="active">
+                    <a href="{% url 'search:search' %}"><i class="fa fa-fw fa-bar-chart-o"></i> Search Twitter</a>
+                </li>
+                <li>
+                    <a href="{% url 'sms:searchsms' %}"><i class="fa fa-fw fa-table"></i> Search SMS</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-edit"></i> Twitter live streaming search</a>
+                </li>
+                <li>
+                    <a href="{% url 'sms:sendsms' %}"><i class="fa fa-fw fa-edit"></i> Send message</a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+
+
+</div>
+
+
+<div id="page-wrapper" style="padding-left: 17%">
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Tweet Results
+                    <small>results</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+                    </li>
+                    <li class="active">
+                        <i class="fa fa-file"></i> Search Twitter
+                    </li>
+                </ol>
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Here is your Tweet search results:</h3>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">Total tweets returned: {{ tweetcount }}</li>
+                        <li class="list-group-item">Total positive tweets: {{ postweets }}</li>
+                        <li class="list-group-item">Total negative tweets: {{ negtweets }}</li>
+                        <li class="list-group-item">Total neutral tweets: {{ neutweets }}</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="col-lg-12">
+                <p>
+                    Show pages
+                    <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page1');">Overview</span>,
+                    <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page2');">Charts</span>,
+                </p>
+            </div>
+
+
+
 <div id="Page1" class="page" style="">
-    <table>
+    <table class="table table-bordered table-hover table-striped">
     <thead>
         <tr>
             <th>Text</th>
             <th>Author</th>
             <th>Date</th>
+            <th>Sentiments</th>
             <th>Polarity</th>
 
         </tr>
@@ -73,15 +154,17 @@
 </div>
 <div id="Page2" class="page" style="display:none">
 
-<canvas id="myChart" width="100" height="100"></canvas>
+<canvas id="myChart" width="400" height="400"></canvas>
 <script>
 var ctx = document.getElementById("myChart");
+Chart.defaults.global.maintainAspectRatio = false;
+Chart.defaults.global.responsive = false;
 var myChart = new Chart(ctx, {
-    type: 'pie',
+    type: 'bar',
     data: {
         labels: ["Positive", "Negative", "Neutral"],
         datasets: [{
-            label: '# of Votes',
+            label: 'Sentiments expressed by tweets',
             data: [{{ postweets }}, {{ negtweets }}, {{ neutweets }}],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -113,6 +196,10 @@ var myChart = new Chart(ctx, {
     }
 });
 </script>
+</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
