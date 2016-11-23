@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 from search.models import Topics
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 class Insms(models.Model):
@@ -36,7 +38,7 @@ class Outsms(models.Model):
 
 
 class Sms(models.Model):
-    subscribed_topic = models.ForeignKey(Topics, on_delete=models.CASCADE)
+    subscribed_topic = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Sms"

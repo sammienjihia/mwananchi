@@ -1,20 +1,33 @@
 from django import forms
 from models import Sms
 from search.models import Topics, Datefilters
+from django.contrib.auth.models import User
 
 
 
 
 
-class SendsmsForm(forms.ModelForm):
-    #subscribed_topics = forms.ModelChoiceField(queryset=Topics.objects.all(), widget=forms.Select(), label='Topic')
+
+class SendsmsForm(forms.Form):
+    subscribed_topic = forms.ModelChoiceField(queryset=User.objects.none(),  label='Please select your name')
+    # choices = forms.ModelChoiceField(queryset=Searches.objects.none(),
+    #                                  label='select search')
 
 
-    class Meta:
-        model = Sms
-        fields = [
-            'subscribed_topic'
-        ]
+    def __init__(self, request, *args, **kwargs):
+        super(SendsmsForm, self).__init__(*args, **kwargs)
+        if request.user:
+            queryset = User.objects.filter(username=request.user)
+        else:
+            queryset = User.objects.all()
+
+        self.fields['subscribed_topic'].queryset = queryset
+
+    # class Meta:
+    #     model = Sms
+    #     fields = [
+    #         'subscribed_topic'
+    #     ]
 
 class SmssearchForm(forms.Form):
     searchword = forms.CharField(max_length=255, label='Enter your search word')

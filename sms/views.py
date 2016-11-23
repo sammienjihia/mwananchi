@@ -41,8 +41,9 @@ def smssearchwordview(newsearchword1):
 def sendsmsview (request):
     title = "Send Message"
     template = loader.get_template('sms/sendsmsform.html')
-    form = SendsmsForm(request.POST or None)
+    form = SendsmsForm(request)
     if request.method == 'POST':
+        form = SendsmsForm(request, request.POST)
         #form = SendsmsForm(request.POST or None)
         if form.is_valid():
             subscribb_topic = request.POST['subscribed_topic']
@@ -66,6 +67,7 @@ def sendsmsview (request):
                                                                                                         flat=True).distinct()]
             for number in numbersto:
                 to = number
+
                 message = "I'm a lumberjack and it's ok, I sleep all night and I work all day"
 
                 gateway = AfricasTalkingGateway(username, apikey)
@@ -93,24 +95,24 @@ def insmsview(messages1):
     print option
     messages3 = ""
 
-    if option == "0":
+    if option == "1":
         N = 30000
         start_date = datetime.now()
         date_N_days_ago = datetime.now() - timedelta(days=N)
         messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date))
 
-    elif option == "1":
+    elif option == "2":
         print "hahahahhahahah"
         N = 7
         start_date = datetime.now()
         date_N_days_ago = datetime.now() - timedelta(days=N)
         messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date))
-    elif option =="2":
+    elif option =="3":
         N = 30
         start_date = datetime.now()
         date_N_days_ago = datetime.now() - timedelta(days=N)
         messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date))
-    elif option =="3":
+    elif option =="4":
         N = 360
         start_date = datetime.now()
         date_N_days_ago = datetime.now() - timedelta(days=N)
