@@ -1,4 +1,5 @@
 from models import Topics, KeyWords
+import os
 from django.http import HttpResponse
 from django.template import loader
 from .forms import SearchForm
@@ -8,9 +9,12 @@ from pattern.db  import Datasheet, pprint, pd
 from pattern.en import sentiment, polarity, subjectivity, positive
 import json
 
-from searchfunction import searchingfunction
-from searchfunction import tweetcount
-from searchfunction import postweets, negtweets, neutweets, getusersearchword
+#from searchfunction import searchingfunction
+from django.core import serializers
+import vincent
+from searchfunction2 import searchfunction2
+from searchfunction2 import tweetcount
+from searchfunction2 import postweets, negtweets, neutweets, getusersearchword
 from django.shortcuts import redirect
 
 
@@ -46,14 +50,23 @@ def searchwordview(newsearchword1):
     return HttpResponse( template.render(context, newsearchword1))
 
 def results(newsearchword):
+    tweetdate = []
+    #jsonData2 = searchingfunction(newsearchword)
+    jsonData2, postweets2, negtweets2, neutweets2, word_freq = searchfunction2()
 
-    jsonData2 = searchingfunction(newsearchword)
+    labels, freq = zip(*word_freq)
+    data = {'data': freq, 'x': labels}
+    print data
+    bar = vincent.Bar(data, iter_idx='x')
+    print bar
+    bar.to_json('term4_freq.json')
+    print bar.to_json()
 
 
-    postweets2 = postweets(postweets)
-    negtweets2 = negtweets(negtweets)
-    neutweets2 = neutweets(neutweets)
+    #postweets2 = postweets()
+    #negtweets2 = negtweets()
+    #neutweets2 = neutweets()
     tweetcount3 = tweetcount(jsonData2)
     template = loader.get_template('search/results.html')
-    context = { "newdata":jsonData2, "tweetcount":tweetcount3, "postweets": postweets2, "negtweets": negtweets2, "neutweets": neutweets2}
+    context = { "newdata":jsonData2, "tweetcount":tweetcount3, "postweets": postweets2, "negtweets": negtweets2, "neutweets": neutweets2, "bar2": bar, "jsonbar": bar.to_json()}
     return HttpResponse( template.render(context))

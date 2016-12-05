@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stream</title>
+
+    {% load staticfiles %}
+
+    <script type="text/javascript" src="{% static 'accounts/js/jquery-3.1.1.min.js' %}"></script>
+    <script type="text/javascript " src="{% static 'accounts/js/streamtweet.js' %}"></script>
+    <script src="{% static 'twitterstream/js/highcharts.js' %}"></script>
+    <script src="{% static 'twitterstream/js/timeseries.js' %}"></script>
+</head>
+<body>
+
+<script>
+
+
+
+
+</script>
+
+
+{% block body %}
+    <p>This is your stream data</p>{% csrf_token %}
+
+
+    <p id="demo">firta idea</p>
+
+
+    <div id="container" style="width:100%; height:400px;"></div>
+            {{ tweests }}
+            {{ tweets.author }}
+            {{ author }}
+        hello
+        {% for tweet in tweets %}
+
+            {{ author }}
+            <table>
+                <tr>
+                    <td>{{ tweets.author }}</td>
+                    <td>{{ tweet.text }}</td>
+                </tr>
+            </table>
+        {% endfor %}
+
+
+
+
+{% endblock %}
+</body>
+</html>

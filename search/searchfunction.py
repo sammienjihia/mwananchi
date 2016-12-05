@@ -4,6 +4,8 @@ from pattern.db  import Datasheet, pprint, pd
 from pattern.en import sentiment, polarity, subjectivity, positive
 import json
 from django.http import HttpResponse
+from django.http import JsonResponse
+
 
 
 
@@ -38,17 +40,21 @@ def searchingfunction(newsearchword):
 
     prev = None
 
-    for i in range(2):
+    for i in range(1):
         print i
 
-        for tweet in engine.search(newsearchword1, start=prev, count=5, cached=False):
+        for tweet in engine.search(newsearchword1, start=prev, count=35, cached=False):
 
-
+            print tweet.id
+            print tweet.profile
+            print tweet.followers
+            # print not tweet
+            # print (tweet)
             sentimentpolarity = polarity(tweet.text)
 
 
 
-            jsonData1.append({'text':tweet.text, 'author':tweet.author, 'date':tweet.date, 'hashtags':hashtags(tweet.text), 'sentiments':sentimentpolarity})
+            jsonData1.append({'tweetid':tweet.id , 'text':tweet.text, 'author':tweet.author, 'date':tweet.date, 'hashtags':hashtags(tweet.text), 'sentiments':sentimentpolarity})
 
             if len(table) == 0 or tweet.id not in index:
                 table.append([tweet.id, tweet.text])
@@ -61,6 +67,11 @@ def searchingfunction(newsearchword):
     jsonData = (json.dumps(jsonData1))
 
     return (jsonData1)
+
+
+
+
+
 
 def tweetcount(tweetCount):
     tweetCount2 = len(tweetCount)

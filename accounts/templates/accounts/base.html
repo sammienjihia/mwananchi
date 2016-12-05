@@ -14,11 +14,18 @@
     <script type="text/javascript" src="{% static 'accounts/js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'search/js/samepage.js' %}"></script>
     <script type="text/javascript" src="{% static 'search/js/Chart.js' %}"></script>
+    <script src="{% static 'twitterstream/js/highcharts.js' %}"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
+    <script src="http://trifacta.github.com/vega/vega.js"></script>
 
 
 </head>
 {% block body %}
-<body>
+<body id="loading">
+<img id="loading" alt="" src="{% static 'accounts/images/infinity.gif' %}"/>
+
 
     <div id="wrapper">
 

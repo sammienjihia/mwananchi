@@ -12,6 +12,8 @@
 
 
 
+
+
 </head>
 {% block body %}
 <body>
@@ -99,6 +101,7 @@
                     Show pages
                     <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page1');">Overview</span>,
                     <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page2');">Charts</span>,
+                    <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page3');">Time-Series</span>,
                 </p>
             </div>
 
@@ -106,6 +109,7 @@
 
 <div id="Page1" class="page" style="">
     <table class="table table-bordered table-hover table-striped">
+
     <thead>
         <tr>
             <th>Text</th>
@@ -197,11 +201,55 @@ var myChart = new Chart(ctx, {
 });
 </script>
 </div>
+
+
+
+
+
+<div id="Page3" class="page" style="display:none">
+
+
+    <p>This is your chart</p>{{ bar }}
+
+    <div id="bar-chart"></div>
+    <div id="vis">{{ bar2 }}</div>
+
+
+    <script type="text/javascript">
+    // parse a spec and create a visualization view
+    function parse(spec) {
+      vg.parse.spec(spec, function(chart) { chart({el:"#vis"}).update(); });
+    }
+{#    var y = JSON.parse({{ jsonbar }});#}
+{#    var text = y.replace(/&quot;/g, '\\"');#}
+
+    parse({{ jsonbar|safe }});
+    </script>
+
+</div>
+
+
+
+
+
+
+
+
+
             </div>
         </div>
     </div>
 </div>
 
 </body>
+    <script type="text/javascript">
+    // parse a spec and create a visualization view
+    function parse(spec) {
+      vg.parse.spec(spec, function(chart) { chart({el:"#vis"}).update(); });
+    }
+    var data2 = {{ bar2 }};
+    JSON.parse(data2);
+    </script>
+
 </html>
 {% endblock %}

@@ -47,6 +47,7 @@ def sendsmsview (request):
         #form = SendsmsForm(request.POST or None)
         if form.is_valid():
             subscribb_topic = request.POST['subscribed_topic']
+            messagein = request.POST['message']
 
 
             username = "SAMMIENJIHIA"
@@ -68,7 +69,8 @@ def sendsmsview (request):
             for number in numbersto:
                 to = number
 
-                message = "I'm a lumberjack and it's ok, I sleep all night and I work all day"
+                #message = "I'm a lumberjack and it's ok, I sleep all night and I work all day"
+                message = messagein
 
                 gateway = AfricasTalkingGateway(username, apikey)
 

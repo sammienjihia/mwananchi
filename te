@@ -1,0 +1,220 @@
+{
+  "axes": [
+    {
+      "scale": "x",
+      "type": "x"
+    },
+    {
+      "scale": "y",
+      "type": "y"
+    }
+  ],
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {
+          "col": "data",
+          "idx": "Raila",
+          "val": 22
+        },
+        {
+          "col": "data",
+          "idx": "Odinga",
+          "val": 22
+        },
+        {
+          "col": "data",
+          "idx": "RT",
+          "val": 16
+        },
+        {
+          "col": "data",
+          "idx": "\u2026",
+          "val": 14
+        },
+        {
+          "col": "data",
+          "idx": "Uhuru",
+          "val": 7
+        },
+        {
+          "col": "data",
+          "idx": "Ruto",
+          "val": 6
+        },
+        {
+          "col": "data",
+          "idx": "support",
+          "val": 5
+        },
+        {
+          "col": "data",
+          "idx": "mbili",
+          "val": 4
+        },
+        {
+          "col": "data",
+          "idx": "talks",
+          "val": 4
+        },
+        {
+          "col": "data",
+          "idx": "nane",
+          "val": 4
+        },
+        {
+          "col": "data",
+          "idx": "wa",
+          "val": 4
+        },
+        {
+          "col": "data",
+          "idx": "address",
+          "val": 4
+        },
+        {
+          "col": "data",
+          "idx": "Jubilee",
+          "val": 4
+        },
+        {
+          "col": "data",
+          "idx": "question",
+          "val": 4
+        },
+        {
+          "col": "data",
+          "idx": "na",
+          "val": 4
+        },
+        {
+          "col": "data",
+          "idx": "weigh",
+          "val": 4
+        },
+        {
+          "col": "data",
+          "idx": "save",
+          "val": 3
+        },
+        {
+          "col": "data",
+          "idx": "floods",
+          "val": 3
+        },
+        {
+          "col": "data",
+          "idx": "JUBILEE",
+          "val": 3
+        },
+        {
+          "col": "data",
+          "idx": "country",
+          "val": 3
+        }
+      ]
+    },
+    {
+      "name": "stats",
+      "source": "table",
+      "transform": [
+        {
+          "keys": [
+            "data.idx"
+          ],
+          "type": "facet"
+        },
+        {
+          "type": "stats",
+          "value": "data.val"
+        }
+      ]
+    }
+  ],
+  "height": 500,
+  "legends": [],
+  "marks": [
+    {
+      "from": {
+        "data": "table",
+        "transform": [
+          {
+            "keys": [
+              "data.col"
+            ],
+            "type": "facet"
+          },
+          {
+            "height": "data.val",
+            "point": "data.idx",
+            "type": "stack"
+          }
+        ]
+      },
+      "marks": [
+        {
+          "properties": {
+            "enter": {
+              "fill": {
+                "field": "data.col",
+                "scale": "color"
+              },
+              "width": {
+                "band": true,
+                "offset": -1,
+                "scale": "x"
+              },
+              "x": {
+                "field": "data.idx",
+                "scale": "x"
+              },
+              "y": {
+                "field": "y",
+                "scale": "y"
+              },
+              "y2": {
+                "field": "y2",
+                "scale": "y"
+              }
+            }
+          },
+          "type": "rect"
+        }
+      ],
+      "type": "group"
+    }
+  ],
+  "padding": "auto",
+  "scales": [
+    {
+      "domain": {
+        "data": "table",
+        "field": "data.idx"
+      },
+      "name": "x",
+      "range": "width",
+      "type": "ordinal",
+      "zero": false
+    },
+    {
+      "domain": {
+        "data": "stats",
+        "field": "sum"
+      },
+      "name": "y",
+      "nice": true,
+      "range": "height"
+    },
+    {
+      "domain": {
+        "data": "table",
+        "field": "data.col"
+      },
+      "name": "color",
+      "range": "category20",
+      "type": "ordinal"
+    }
+  ],
+  "width": 960
+}

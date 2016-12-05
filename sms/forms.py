@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 
 class SendsmsForm(forms.Form):
     subscribed_topic = forms.ModelChoiceField(queryset=User.objects.none(),  label='Please select your name')
+    message = forms.CharField(widget=forms.Textarea, max_length=255, label='Please enter your message')
     # choices = forms.ModelChoiceField(queryset=Searches.objects.none(),
     #                                  label='select search')
 

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'twitterstream.apps.TwitterstreamConfig',
     'subscribe.apps.SubscribeConfig',
     'sms.apps.SmsConfig',
     'search.apps.SearchConfig',
