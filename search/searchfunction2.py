@@ -10,6 +10,7 @@ from collections import Counter
 from preprocess import preprocess
 from nltk.corpus import stopwords
 import string
+import pandas
 
 
 
@@ -50,6 +51,7 @@ def searchfunction2():
     negtweets = 0
     postweets = 0
     neutweets = 0
+    dates_ITAvWAL = []
 
     global sentimentpolarity
 
@@ -61,6 +63,7 @@ def searchfunction2():
         table = Datasheet()
         index = set()
 
+    query = newsearchword1
     prev = None
     count_all = Counter()
 
@@ -84,6 +87,7 @@ def searchfunction2():
         print
         sentimentpolarity = polarity(tweet.text)
 
+
         jsonData1.append({'tweetid': tweet.id, 'text': tweet.text, 'author': tweet.user.screen_name, 'date': tweet.created_at,
                           'hashtags': hashtags(tweet.text), 'sentiments': sentimentpolarity, 'followers':tweet.user.followers_count,
                           'retweets':tweet.retweet_count, 'favourite': tweet.user.favourites_count })
@@ -104,11 +108,17 @@ def searchfunction2():
 
 
         punctuation = list(string.punctuation)
+        ####################The below commented lines will help to search for the most frequent terms######
         stop = stopwords.words('english') + punctuation + ['rt', 'via']
-        terms_only = [term for term in preprocess(tweet.text)
+        terms_only2 = [term for term in preprocess(tweet.text)
                       if term not in stop and
                       not term.startswith(('#', '@'))]
+        terms_only = [term for term in preprocess(tweet.text) if term.startswith('#')]
         count_all.update(terms_only)
+
+        if query in terms_only or terms_only2:
+            dates_ITAvWAL.append(tweet.created_at)
+
 
         if len(table) == 0 or tweet.id not in index:
             table.append([tweet.id, tweet.text])
@@ -118,42 +128,24 @@ def searchfunction2():
 
 
 
+    ones = [1] * len(dates_ITAvWAL)
+
+    idx = dates_ITAvWAL
+
+    ITAvWAL = pandas.Series(ones, index=idx)
+    print ITAvWAL
+    # Resampling / bucketing
+    per_hour = ITAvWAL.resample('1t').sum().fillna(0)
 
 
 
-    return (jsonData1, postweets, negtweets, neutweets, count_all.most_common(20))
 
+
+
+    return (jsonData1, postweets, negtweets, neutweets, count_all.most_common(10), per_hour)
 
 
 def tweetcount(tweetCount):
     tweetCount2 = len(tweetCount)
     return (tweetCount2)
-
-def postweets():
-    postweets = 0
-    for tweet in searchfunction2():
-        if polarity(tweet['text']) > 0:
-            postweets +=1
-    return (postweets)
-
-def negtweets():
-    negtweets = 0
-    for tweet in searchfunction2():
-        if polarity(tweet['text']) < 0:
-            negtweets +=1
-    return (negtweets)
-
-
-def neutweets():
-    neutweets = 0
-    for tweet in searchfunction2():
-        if polarity(tweet['text']) == 0:
-            neutweets +=1
-    return (neutweets)
-
-
-
-
-
-
 

@@ -13,7 +13,6 @@
 
 
 
-
 </head>
 {% block body %}
 <body>
@@ -97,18 +96,24 @@
 
 
             <div class="col-lg-12">
-                <p>
+                <nav class="" role="navigation">
                     Show pages
                     <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page1');">Overview</span>,
                     <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page2');">Charts</span>,
-                    <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page3');">Time-Series</span>,
-                </p>
+                    <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page3');">Wordfrequency</span>,
+                    <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page4');">Time-series</span>,
+                </nav>
             </div>
+            <p></p>
 
 
 
 <div id="Page1" class="page" style="">
-    <table class="table table-bordered table-hover table-striped">
+
+
+
+    <table width="100%" class="table table-bordered table-hover table-striped" id="myTable">
+    <div class="tab-pane">Overview Of The Tweets Received</div>
 
     <thead>
         <tr>
@@ -156,6 +161,7 @@
 
             </table>
 </div>
+
 <div id="Page2" class="page" style="display:none">
 
 <canvas id="myChart" width="400" height="400"></canvas>
@@ -209,10 +215,10 @@ var myChart = new Chart(ctx, {
 <div id="Page3" class="page" style="display:none">
 
 
-    <p>This is your chart</p>{{ bar }}
 
-    <div id="bar-chart"></div>
-    <div id="vis">{{ bar2 }}</div>
+
+
+    <div id="vis"  style="padding-top: 250px"></div>
 
 
     <script type="text/javascript">
@@ -220,10 +226,30 @@ var myChart = new Chart(ctx, {
     function parse(spec) {
       vg.parse.spec(spec, function(chart) { chart({el:"#vis"}).update(); });
     }
-{#    var y = JSON.parse({{ jsonbar }});#}
-{#    var text = y.replace(/&quot;/g, '\\"');#}
 
     parse({{ jsonbar|safe }});
+    </script>
+
+</div>
+
+
+
+<div id="Page4" class="page" style="display:none">
+
+
+
+
+
+    <div id="vis2" style="padding-top: 250px" ></div>
+
+
+    <script type="text/javascript">
+    // parse a spec and create a visualization view
+    function parse(spec) {
+      vg.parse.spec(spec, function(chart) { chart({el:"#vis2"}).update(); });
+    }
+
+    parse({{ timeseries|safe }});
     </script>
 
 </div>
@@ -240,16 +266,13 @@ var myChart = new Chart(ctx, {
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+    $('#myTable').DataTable();
+});
+</script>
 
 </body>
-    <script type="text/javascript">
-    // parse a spec and create a visualization view
-    function parse(spec) {
-      vg.parse.spec(spec, function(chart) { chart({el:"#vis"}).update(); });
-    }
-    var data2 = {{ bar2 }};
-    JSON.parse(data2);
-    </script>
 
 </html>
 {% endblock %}

@@ -2,10 +2,12 @@
   "axes": [
     {
       "scale": "x",
+      "title": "Time",
       "type": "x"
     },
     {
       "scale": "y",
+      "title": "Freq",
       "type": "y"
     }
   ],
@@ -15,35 +17,26 @@
       "values": [
         {
           "col": "data",
-          "idx": "#twtnarutoMY",
-          "val": 1
+          "idx": 1481094900000,
+          "val": 27
         },
         {
           "col": "data",
-          "idx": "#narutofacts",
-          "val": 1
-        }
-      ]
-    },
-    {
-      "name": "stats",
-      "source": "table",
-      "transform": [
-        {
-          "keys": [
-            "data.idx"
-          ],
-          "type": "facet"
-        },
-        {
-          "type": "stats",
-          "value": "data.val"
+          "idx": 1481094960000,
+          "val": 3
         }
       ]
     }
   ],
   "height": 500,
-  "legends": [],
+  "legends": [
+    {
+      "fill": "color",
+      "offset": 0,
+      "properties": {},
+      "title": "Matches"
+    }
+  ],
   "marks": [
     {
       "from": {
@@ -54,11 +47,6 @@
               "data.col"
             ],
             "type": "facet"
-          },
-          {
-            "height": "data.val",
-            "point": "data.idx",
-            "type": "stack"
           }
         ]
       },
@@ -66,30 +54,24 @@
         {
           "properties": {
             "enter": {
-              "fill": {
+              "stroke": {
                 "field": "data.col",
                 "scale": "color"
               },
-              "width": {
-                "band": true,
-                "offset": -1,
-                "scale": "x"
+              "strokeWidth": {
+                "value": 2
               },
               "x": {
                 "field": "data.idx",
                 "scale": "x"
               },
               "y": {
-                "field": "y",
-                "scale": "y"
-              },
-              "y2": {
-                "field": "y2",
+                "field": "data.val",
                 "scale": "y"
               }
             }
           },
-          "type": "rect"
+          "type": "line"
         }
       ],
       "type": "group"
@@ -104,13 +86,12 @@
       },
       "name": "x",
       "range": "width",
-      "type": "ordinal",
-      "zero": false
+      "type": "time"
     },
     {
       "domain": {
-        "data": "stats",
-        "field": "sum"
+        "data": "table",
+        "field": "data.val"
       },
       "name": "y",
       "nice": true,
