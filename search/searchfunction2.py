@@ -6,13 +6,14 @@ from pattern.db  import Datasheet, pprint, pd
 from pattern.en import sentiment, polarity, subjectivity, positive
 import operator
 import json
+from sort import bubble
 from collections import Counter
 from preprocess import preprocess
 from nltk.corpus import stopwords
 import string
 import pandas
 
-
+import re
 
 ckey = "DASDze82n52S1mWqjaABSOFZD"
 csecret = "VjDDbowV4qEHdn0v5f8IkiWNwzYlozmww11fularNSpF1t4jqD"
@@ -46,7 +47,7 @@ def getusersearchword(request):
 
 #This function will search your query in twitter
 
-def searchfunction2():
+def searchfunction2(newsearchword1):
     jsonData1 = []
     negtweets = 0
     postweets = 0
@@ -66,9 +67,10 @@ def searchfunction2():
     query = newsearchword1
     prev = None
     count_all = Counter()
+    count_all2 = Counter()
 
     #for tweet in (tweepy.Cursor(api.search, q=newsearchword1, cached=False, start=prev).items(20)):
-    for tweet in api.search(q=newsearchword1, cached=False, start=prev, count=30):
+    for tweet in api.search(q=newsearchword1, cached=False, start=prev, count=100):
 
         print
         print
@@ -77,6 +79,7 @@ def searchfunction2():
         print ("Screen name:", tweet.user.screen_name)
         print ("Tweet:", tweet.text)
         print ("Polarity:", polarity(tweet.text))
+        print ("Subjectivity:", subjectivity(tweet.text))
         print ("Language:", tweet.lang)
         print ("Retwwet Count:", tweet.retweet_count)
         print ("User follower count:", tweet.user.followers_count)
@@ -110,13 +113,24 @@ def searchfunction2():
         punctuation = list(string.punctuation)
         ####################The below commented lines will help to search for the most frequent terms######
         stop = stopwords.words('english') + punctuation + ['rt', 'via']
-        terms_only2 = [term for term in preprocess(tweet.text)
-                      if term not in stop and
-                      not term.startswith(('#', '@'))]
-        terms_only = [term for term in preprocess(tweet.text) if term.startswith('#')]
-        count_all.update(terms_only)
 
-        if query in terms_only or terms_only2:
+        terms_only2 = [term for term in tweet.text.lower().split() if term not in stop and not term.startswith(('#', '@')) ]
+        count_all2.update(terms_only2)
+        print "here are the tokens"
+        print terms_only2
+
+        term = str(preprocess(tweet.text, lowercase=True))
+
+        terms_only = re.findall(r'#\w+', term)
+        termsw = "click me... http://127.0.0.1:8000/search/results/"
+        # print ' '.join(terms_only2)
+        # print termsw.split()
+
+        count_all.update(terms_only)
+        # terms_only = [term for term in preprocess(tweet.text, lowercase=True) if term.startswith('#')]
+        # count_all.update(terms_only)
+
+        if query.lower() in terms_only or terms_only2:
             dates_ITAvWAL.append(tweet.created_at)
 
 
@@ -133,19 +147,17 @@ def searchfunction2():
     idx = dates_ITAvWAL
 
     ITAvWAL = pandas.Series(ones, index=idx)
-    print ITAvWAL
     # Resampling / bucketing
     per_hour = ITAvWAL.resample('1t').sum().fillna(0)
 
 
 
 
-
-
-    return (jsonData1, postweets, negtweets, neutweets, count_all.most_common(10), per_hour)
+    return (jsonData1, postweets, negtweets, neutweets, count_all.most_common(10), count_all2.most_common(10), per_hour)
 
 
 def tweetcount(tweetCount):
     tweetCount2 = len(tweetCount)
     return (tweetCount2)
+
 

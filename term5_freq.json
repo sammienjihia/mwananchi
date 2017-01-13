@@ -2,12 +2,10 @@
   "axes": [
     {
       "scale": "x",
-      "title": "Hashtags",
       "type": "x"
     },
     {
       "scale": "y",
-      "title": "Frequency",
       "type": "y"
     }
   ],
@@ -17,38 +15,53 @@
       "values": [
         {
           "col": "data",
-          "idx": "#gunmisuse",
-          "val": 39
+          "idx": "firearms",
+          "val": 29
         },
         {
           "col": "data",
-          "idx": "#iebcvetting",
-          "val": 5
+          "idx": "people",
+          "val": 20
         },
         {
           "col": "data",
-          "idx": "#topthreetrends",
-          "val": 2
+          "idx": "senator",
+          "val": 18
         },
         {
           "col": "data",
-          "idx": "#johoimpunity",
-          "val": 1
+          "idx": "mombasa",
+          "val": 17
         },
         {
           "col": "data",
-          "idx": "#msa",
-          "val": 1
+          "idx": "governor",
+          "val": 17
         },
         {
           "col": "data",
-          "idx": "#stopgunmisuse",
-          "val": 1
+          "idx": "of\u2026",
+          "val": 16
         },
         {
           "col": "data",
-          "idx": "#uhuruchallenge",
-          "val": 1
+          "idx": "hands",
+          "val": 15
+        },
+        {
+          "col": "data",
+          "idx": "concerns",
+          "val": 15
+        },
+        {
+          "col": "data",
+          "idx": "government",
+          "val": 15
+        },
+        {
+          "col": "data",
+          "idx": "gun",
+          "val": 15
         }
       ]
     },

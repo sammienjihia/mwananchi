@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jet.dashboard',
+    'jet',
     'twitterstream.apps.TwitterstreamConfig',
     'subscribe.apps.SubscribeConfig',
     'sms.apps.SmsConfig',

@@ -46,7 +46,7 @@ def receivedsms(message1):
                 keyword = message['text'].split()
                 message1.append({'from': message['from'], 'to': message['to'], 'date': message['date'], 'text': message['text'],'polarity': polarity(message['text']), 'keyword':keyword[0]})
                 obj, created = Insms.objects.get_or_create(sender=message['from'], to=message['to'], date=message['date'],
-                                                           text=message['text'], polarity=polarity(message['text']), keyword=keyword[0])
+                                                           text=message['text'], polarity=polarity(message['text']), keyword=keyword[0].lower())
                 print keyword[0]
                 print created
                 lastReceivedId = message['id']

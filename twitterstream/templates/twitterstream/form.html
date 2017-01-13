@@ -1,25 +1,18 @@
+
 {% extends 'accounts/base.html' %}
+
 {% load crispy_forms_tags %}
 {% load staticfiles %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="{% static 'accounts/css/loading.css' %}"  />
-    <link rel="stylesheet" href="{% static 'search/css/searchstyling.css' %}"  />
     <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/landing-page.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/style.css' %}" />
     <script href="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-
-
 {% block body %}
-
-
-
-
-<body id="loading">
-<div id="loading">
-  <img id="loading-image" src="{% static 'accounts/images/infinity.gif' %}" alt="Loading..." />
-</div>
-
+<body>
 
     <div id="wrapper">
 
@@ -49,21 +42,19 @@
 
                 </li>
             </ul>
-
-
-        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
                         <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li class="active">
+                    <li class=>
                         <a href="{% url 'search:search' %}"><i class="fa fa-fw fa-bar-chart-o"></i> Search Twitter</a>
                     </li>
                     <li>
                         <a href="{% url 'sms:searchsms' %}"><i class="fa fa-fw fa-table"></i> Search SMS</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="{% url 'twitterstream:tweetstream' %}"><i class="fa fa-fw fa-edit"></i> Twitter live streaming search</a>
                     </li>
                     <li>
@@ -73,8 +64,6 @@
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
-
-
         </nav>
 
 
@@ -83,85 +72,40 @@
 
 
 
-<div id="p" class="container">
+
+
+
+
+
+<div  style="padding-top: 10%">
+<div class="container">
     <div class="row">
-
-        <div class="col-md-8 col-md-offset-3">
-            <div id="loading" >
-
-
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ title }}</h3>
+                </div>
+                <div class="panel-body panel " >
 
 
                         {% if error_message %}
                         <p><strong>{{ error_message }}</strong></p>
                         {% endif %}
-                        <div><h2>GET YOUR DATA STRAIGHT FROM TWITTER</h2></div>
 
                         <form action=" " method="post" enctype="multipart/form-data">
+
                             {% csrf_token %}
-                              <div class="input-group">
-                                <input type="text" name='searchword' class="form-control" placeholder="Search">
-                                <div class="input-group-btn">
-                                  <button class="btn btn-default" type="submit">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                  </button>
-                                </div>
-                              </div>
+                            {{ form|crispy }}
+
+                            <input type="submit" class="btn btn-default" value="{{ title }}">
+
                         </form>
 
-
-
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-    <!-- /#wrapper -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-<script language="javascript" type="text/javascript">
-     $(window).load(function() {
-     $('#loading').hide();
-  });
-</script>
-
+</div>
 </body>
-
-
-
-
-
-
-
-
-    <script>
-    function json_to_select(url, select_selector) {
-/*
- Fill a select input field with data from a getJSON call
- Inspired by: http://stackoverflow.com/questions/1388302/create-option-on-the-fly-with-jquery
-*/
-    $.getJSON(url, function(data) {
-    var opt=$(select_selector);
-    var old_val=opt.val();
-        opt.html('');
-        $.each(data, function () {
-            opt.append($('<option/>').val(this.id).text(this.value));
-        });
-        opt.val(old_val);
-        opt.change();
-    })
-}
-
-
-   $(function(){
-     $('#id_parent').change(function(){
-       json_to_select('search/topic_to_keywords/?topic=' + $(this).val(), '#id_child');
-     })
-    });
-    </script>
 {% endblock %}

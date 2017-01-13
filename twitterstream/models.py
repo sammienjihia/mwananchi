@@ -7,8 +7,8 @@ from datetime import datetime
 
 class StreamTweets(models.Model):
     text = models.CharField(max_length=255)
-    date = models.DateTimeField(default=datetime.now)
     author = models.CharField(max_length=255)
+    date = models.DateField()
     polarity = models.FloatField(max_length=255)
 
     class Meta:

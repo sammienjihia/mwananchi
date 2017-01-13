@@ -45,10 +45,10 @@
                     <a href="{% url 'sms:searchsms' %}"><i class="fa fa-fw fa-table"></i> Search SMS</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-edit"></i> Twitter live streaming search</a>
+                    <a href="{% url 'twitterstream:tweetstream' %}"><i class="fa fa-fw fa-edit"></i> Twitter live streaming search</a>
                 </li>
                 <li>
-                    <a href="{% url 'sms:sendsms' %}"><i class="fa fa-fw fa-edit"></i> Send message</a>
+                    <a href="{% url 'sms:sendsms' %}"><i class="fa fa-comments-o"></i> Send message</a>
                 </li>
 
             </ul>
@@ -100,8 +100,9 @@
                     Show pages
                     <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page1');">Overview</span>,
                     <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page2');">Charts</span>,
-                    <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page3');">Wordfrequency</span>,
-                    <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page4');">Time-series</span>,
+                    <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page3');">Hashtagfrequency</span>,
+                    <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page4');">Wordfrequency</span>,
+                    <span style="cursor: pointer; color: #1b6d85;" onclick="show('Page5');">Time-series</span>,
                 </nav>
             </div>
             <p></p>
@@ -162,6 +163,8 @@
             </table>
 </div>
 
+
+
 <div id="Page2" class="page" style="display:none">
 
 <canvas id="myChart" width="400" height="400"></canvas>
@@ -212,6 +215,8 @@ var myChart = new Chart(ctx, {
 
 
 
+
+
 <div id="Page3" class="page" style="display:none">
 
 
@@ -249,16 +254,32 @@ var myChart = new Chart(ctx, {
       vg.parse.spec(spec, function(chart) { chart({el:"#vis2"}).update(); });
     }
 
-    parse({{ timeseries|safe }});
+    parse({{ jsonbar2|safe }});
     </script>
 
 </div>
 
 
 
+<div id="Page5" class="page" style="display:none">
 
 
 
+
+
+    <div id="vis3"  style="padding-top: 250px"></div>
+
+
+    <script type="text/javascript">
+    // parse a spec and create a visualization view
+    function parse(spec) {
+      vg.parse.spec(spec, function(chart) { chart({el:"#vis3"}).update(); });
+    }
+
+    parse({{ timeseries|safe }});
+    </script>
+
+</div>
 
 
 
