@@ -19,8 +19,9 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^search/', include('search.urls')),
+    url(r'^stream/', include('twitterstream.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^subscribe/', include('subscribe.urls')),
-    url(r'^sendsms/', include('sms.urls')),
+    url(r'^sms/', include('sms.urls')),
     url(r'', include('accounts.urls')),
 ]

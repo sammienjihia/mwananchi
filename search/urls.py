@@ -5,7 +5,7 @@ app_name = 'search'
 
 urlpatterns = [
     # /music/
-    url(r'^$', views.topics, name='search'),
-
+    url(r'^$', views.searchwordview, name='search'),
+    url(r'^results/$', views.results, name='results'),
 
 ]

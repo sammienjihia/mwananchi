@@ -5,61 +5,97 @@
     <title>{% block title %}Mwananchi{% endblock %}</title>
     <!-- loads the path to your static files-->
     {% load staticfiles %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
     <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" type="text/css" href="" />
-    <script href="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/sb-admin.css' %}" />
+    <link href="{% static 'accounts/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'accounts/css/jquery.dataTables.css' %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{% static 'accounts/js/jquery-3.1.1.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'accounts/js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'accounts/js/dataTables.bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'accounts/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'search/js/samepage.js' %}"></script>
+    <script type="text/javascript" src="{% static 'search/js/Chart.js' %}"></script>
+    <script src="{% static 'twitterstream/js/highcharts.js' %}"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
+    <script src="http://trifacta.github.com/vega/vega.js"></script>
 
 
 </head>
-<body>
+{% block body %}
+<body id="loading">
+<img id="loading" alt="" src="{% static 'accounts/images/infinity.gif' %}"/>
 
-    <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
 
-        <!-- header -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="">Mwananchi</a>
+    <div id="wrapper">
 
-        </div>
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Mwananchi</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
 
-        <!-- items -->
-        <div class="collapse navbar-collapse" id="topNavBar">
-
-            <form class="navbar-form navbar-left" role="search" method="get" action="#">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="q" value="">
-                </div>
-                <button type="submit" class="btn btn-default">Search</button>
-            </form>
-
-            <ul class="nav navbar-nav navbar-right">
-
-                <li class="">
-                    <a href="">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; {{ request.user.username }}
-                    </a>
                 </li>
+                <li class="dropdown">
+                    <a href="{% url 'accounts:logout' %}" ><i class="fa fa-bell"></i>logout</a>
 
-                <li class="">
-                    <a href="{% url 'accounts:logout' %}">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
-                    </a>
                 </li>
+                <li class="dropdown">
+                    <a href="#" ><i class="fa fa-user"></i>{{ request.user.username }}</a>
 
+                </li>
             </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a href="{% url 'accounts:index' %}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'search:search' %}"><i class="fa fa-fw fa-bar-chart-o"></i> Search Twitter</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'sms:searchsms' %}"><i class="fa fa-fw fa-table"></i> Search SMS</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-edit"></i> Twitter live streaming search</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'sms:sendsms' %}"><i class="fa fa-fw fa-edit"></i> Send message</a>
+                    </li>
 
-        </div>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+
 
     </div>
-</nav>
-{% block body %}
-{% endblock %}
+
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
 </body>
+{% endblock %}
 </html>

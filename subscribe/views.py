@@ -19,7 +19,7 @@ def subscriptionview (request):
         #answer = form.cleaned_data.get('subscribed_topic')
         subscriber.save()
 
-        return redirect("/index")
+        return HttpResponse("successfully subscribed ")
 
 
 

@@ -1,37 +1,161 @@
+{% extends 'accounts/base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{% static 'accounts/css/loading.css' %}"  />
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css' />
+    <script href="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+
 {% block body %}
-    <h1>Please make a selection</h1>
-    {% if topics %}
-        <form method='' action=''>
-            <select class="form-control" id="topic" name='topic'>
-                <option>Select a topic</option>
-                {% for topic in topics %}
-                    <option value='{{topic.topic_id}}'>{{ topic.topic_title }}</option>
-                {% endfor %}
-            </select>
 
 
-            <select class="form-control" id="keyword" name='keyword'>
-                <option>Select a keyword</option>
-                {% for keyword in keywords %}
-                    <option value='{{keyword.key_word_id}}'>{{ keyword.key_word }}</option>
-                {% endfor %}
-            </select>
 
 
-        <select name="country" id="select_country">
-            {% for c in topics %}
-                <option value="{{ c.val }}"{% ifequal c.val topics %} selected="selected"{% endifequal %}>{{ c.topic_title }}</option>
-            {% endfor %}
-        </select>
-
-        <select name="state" id="select_state">
-            {% for s in keywords %}
-                <option value="{{ s.val }} {{ s.key_word_id }}"{% ifequal s.val keywords %} selected="selected"{% endifequal %}>{{ s.key_word }}</option>
-            {% endfor %}
-        </select>
+<body id="loading">
+<div id="loading">
+  <img id="loading-image" src="{% static 'accounts/images/infinity.gif' %}" alt="Loading..." />
+</div>
 
 
-        </form>
+    <div id="wrapper">
 
-    {% endif %}
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Mwananchi</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+
+                </li>
+                <li class="dropdown">
+                    <a href="{% url 'accounts:logout' %}" ><i class="fa fa-bell"></i>logout</a>
+
+                </li>
+                <li class="dropdown">
+                    <a href="#" ><i class="fa fa-user"></i>{{ request.user.username }}</a>
+
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <li class="active">
+                        <a href="{% url 'search:search' %}"><i class="fa fa-fw fa-bar-chart-o"></i> Search Twitter</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'sms:searchsms' %}"><i class="fa fa-fw fa-table"></i> Search SMS</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-edit"></i> Twitter live streaming search</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'sms:sendsms' %}"><i class="fa fa-fw fa-edit"></i> Send message</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+
+
+    </div>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div id="loading" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ title }}</h3>
+                </div>
+                <div class="panel-body">
+
+
+                        {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                        {% endif %}
+
+                        <form action=" " method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+
+                            {{ form|crispy }}
+
+
+                            <input type="submit" class="btn btn-default" value="{{ title }}">
+
+                        </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+<script language="javascript" type="text/javascript">
+     $(window).load(function() {
+     $('#loading').hide();
+  });
+</script>
+
+</body>
+
+
+
+
+
+
+
+
+    <script>
+    function json_to_select(url, select_selector) {
+/*
+ Fill a select input field with data from a getJSON call
+ Inspired by: http://stackoverflow.com/questions/1388302/create-option-on-the-fly-with-jquery
+*/
+    $.getJSON(url, function(data) {
+    var opt=$(select_selector);
+    var old_val=opt.val();
+        opt.html('');
+        $.each(data, function () {
+            opt.append($('<option/>').val(this.id).text(this.value));
+        });
+        opt.val(old_val);
+        opt.change();
+    })
+}
+
+
+   $(function(){
+     $('#id_parent').change(function(){
+       json_to_select('search/topic_to_keywords/?topic=' + $(this).val(), '#id_child');
+     })
+    });
+    </script>
 {% endblock %}

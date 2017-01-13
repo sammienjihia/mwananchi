@@ -2,13 +2,17 @@ from __future__ import unicode_literals
 
 from django.db import models
 from search.models import Topics
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 class Insms(models.Model):
     sender = models.CharField(max_length=255)
-    reciever = models.CharField(max_length=255)
-    recieved_date = models.DateTimeField()
+    to = models.CharField(max_length=255)
+    date = models.DateTimeField()
     text = models.CharField(max_length=255)
+    keyword = models.CharField(max_length=255)
+    polarity = models.FloatField(max_length=255)
 
     class Meta:
         db_table = "Insms"
@@ -34,7 +38,7 @@ class Outsms(models.Model):
 
 
 class Sms(models.Model):
-    subscribed_topic = models.ForeignKey(Topics, on_delete=models.CASCADE)
+    subscribed_topic = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Sms"

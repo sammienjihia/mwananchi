@@ -1,5 +1,7 @@
 from django import forms
 from models import Topics, Subscribers
+from django.contrib.auth.models import User
+
 
 
 
@@ -7,7 +9,7 @@ from models import Topics, Subscribers
 
 class SubscriptionForm(forms.ModelForm):
     mobile_number = forms.CharField(max_length=255, label='Phone Number')
-    subscribed_topic = forms.ModelChoiceField(queryset=Topics.objects.all(), widget=forms.Select(), label='Topic')
+    subscribed_topic = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.Select(), label='Follow Users')
 
     class Meta:
         model = Subscribers
