@@ -28,10 +28,17 @@ var srvRqst = $.ajax({
         datatype: 'application/json'
     });
 srvRqst.done(function(response){
-    var tweets = response;
+    var tweets =  response;
+
     //$('.done').html(tweets).fadeIn('slow');
-    console.log(tweets.data);
-    document.getElementById("demo").innerHTML = tweets.data;
+    //console.log(tweets['data']);
+    for(var i=0; i< tweets['data'].length; i++){
+       var data = $.parseJSON(tweets['data']);
+        console.log(data[0]['fields']['text']);
+
+     $("#demo").append(data[0]['fields']['text']+"<br>");
+    }
+
 
 //         /*alert(JSON.stringify(tweets));*/
 // {#        for(var i = 0; i< tweets.length; i++ ){#}

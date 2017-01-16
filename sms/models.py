@@ -19,7 +19,7 @@ class Insms(models.Model):
         verbose_name_plural = "Insms"
 
     def __str__(self):
-        return self.sender, self.recieved_date, self.text
+        return self.sender, self.date, self.text
 
 
 

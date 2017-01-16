@@ -118,7 +118,7 @@ def insmsview(messages1):
         N = 360
         start_date = datetime.now()
         date_N_days_ago = datetime.now() - timedelta(days=N)
-        messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date))
+        messages3 = Insms.objects.filter(keyword=searchingword.lower(), date__range=(date_N_days_ago, start_date))
     else:
         print "you have not selected anything"
 
