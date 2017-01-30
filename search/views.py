@@ -1,6 +1,6 @@
 from models import Topics, KeyWords
 import os
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from .forms import SearchForm
 
@@ -30,7 +30,7 @@ def searchwordview(request):
     template = loader.get_template('search/search.html')
     if request.method == 'POST':
         request.session['searchword'] = request.POST['searchword']
-        return redirect("results/")
+        return HttpResponseRedirect("results/")
     else:
         return render(request, 'search/search.html')
 
@@ -63,5 +63,5 @@ def results(request):
 
     tweetcount3 = tweetcount(jsonData2)
     template = loader.get_template('search/results.html')
-    context = { "newdata":jsonData2, "tweetcount":tweetcount3, "postweets": postweets2, "negtweets": negtweets2, "neutweets": neutweets2, "bar2": bar, "jsonbar": bar.to_json(), "jsonbar2": bar2.to_json(), "timeseries": time_chart.to_json()}
+    context = { "searchword":searchword, "newdata":jsonData2, "tweetcount":tweetcount3, "postweets": postweets2, "negtweets": negtweets2, "neutweets": neutweets2, "bar2": bar, "jsonbar": bar.to_json(), "jsonbar2": bar2.to_json(), "timeseries": time_chart.to_json()}
     return HttpResponse( template.render(context))

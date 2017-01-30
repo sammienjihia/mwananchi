@@ -88,7 +88,7 @@ def searchfunction2(newsearchword1):
         print ("Hash tags:", hashtags(tweet.text))
         print
         print
-        sentimentpolarity = polarity(tweet.text)
+        sentimentpolarity = round(polarity(tweet.text), 3)
 
 
         jsonData1.append({'tweetid': tweet.id, 'text': tweet.text, 'author': tweet.user.screen_name, 'date': tweet.created_at,

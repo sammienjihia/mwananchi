@@ -17,37 +17,52 @@
       "values": [
         {
           "col": "data",
-          "idx": "#gunmisuse",
-          "val": 39
-        },
-        {
-          "col": "data",
-          "idx": "#iebcvetting",
-          "val": 5
-        },
-        {
-          "col": "data",
-          "idx": "#topthreetrends",
+          "idx": "#pinulotkalangsalupa",
           "val": 2
         },
         {
           "col": "data",
-          "idx": "#johoimpunity",
+          "idx": "#fitness",
+          "val": 2
+        },
+        {
+          "col": "data",
+          "idx": "#podernfamily",
+          "val": 2
+        },
+        {
+          "col": "data",
+          "idx": "#sagawards",
           "val": 1
         },
         {
           "col": "data",
-          "idx": "#msa",
+          "idx": "#mondayescapes",
           "val": 1
         },
         {
           "col": "data",
-          "idx": "#stopgunmisuse",
+          "idx": "#dtbyongmaprimetime",
           "val": 1
         },
         {
           "col": "data",
-          "idx": "#uhuruchallenge",
+          "idx": "#photoofthedayy",
+          "val": 1
+        },
+        {
+          "col": "data",
+          "idx": "#myrebelmanifesto",
+          "val": 1
+        },
+        {
+          "col": "data",
+          "idx": "#aldubdevotion",
+          "val": 1
+        },
+        {
+          "col": "data",
+          "idx": "#tglbeneaththesurface",
           "val": 1
         }
       ]
