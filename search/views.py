@@ -60,6 +60,10 @@ def results(request):
     time_chart.legend(title='Tweets as data')
     time_chart.to_json('time_chart.json')
 
+    print ()
+    print("This is the time series")
+    print(time_chart.to_json('time_chart.json'))
+
 
     tweetcount3 = tweetcount(jsonData2)
     template = loader.get_template('search/results.html')

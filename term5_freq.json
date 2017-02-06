@@ -15,53 +15,53 @@
       "values": [
         {
           "col": "data",
-          "idx": "love",
-          "val": 65
+          "idx": "uhuru",
+          "val": 76
         },
         {
           "col": "data",
-          "idx": "u",
+          "idx": "kenyatta",
+          "val": 14
+        },
+        {
+          "col": "data",
+          "idx": "political",
+          "val": 13
+        },
+        {
+          "col": "data",
+          "idx": "president",
+          "val": 11
+        },
+        {
+          "col": "data",
+          "idx": "times",
+          "val": 10
+        },
+        {
+          "col": "data",
+          "idx": "ft",
           "val": 8
         },
         {
           "col": "data",
-          "idx": "much",
+          "idx": "odinga",
           "val": 7
         },
         {
           "col": "data",
-          "idx": "thank",
-          "val": 5
+          "idx": "tunein:",
+          "val": 7
         },
         {
           "col": "data",
-          "idx": "best",
-          "val": 4
+          "idx": "bakus",
+          "val": 7
         },
         {
           "col": "data",
-          "idx": "it's",
-          "val": 4
-        },
-        {
-          "col": "data",
-          "idx": "thanks",
-          "val": 4
-        },
-        {
-          "col": "data",
-          "idx": "you,",
-          "val": 4
-        },
-        {
-          "col": "data",
-          "idx": "forget",
-          "val": 3
-        },
-        {
-          "col": "data",
-          "idx": "i'm",
-          "val": 3
+          "idx": "listen",
+          "val": 7
         }
       ]
     },

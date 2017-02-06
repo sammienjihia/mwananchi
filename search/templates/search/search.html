@@ -4,84 +4,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" href="{% static 'accounts/css/loading.css' %}"  />
     <link rel="stylesheet" href="{% static 'search/css/searchstyling.css' %}"  />
-    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css' />
-    <script href="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-
-
-{% block body %}
 
 
 
 
-<body id="loading">
-<div id="loading">
-  <img id="loading-image" src="{% static 'accounts/images/infinity.gif' %}" alt="Loading..." />
-</div>
-
-
-    <div id="wrapper">
-
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Mwananchi</a>
-            </div>
-            <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-
-                </li>
-                <li class="dropdown">
-                    <a href="{% url 'accounts:logout' %}" ><i class="fa fa-bell"></i>logout</a>
-
-                </li>
-                <li class="dropdown">
-                    <a href="#" ><i class="fa fa-user"></i>{{ request.user.username }}</a>
-
-                </li>
-            </ul>
-
-
-        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li>
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li class="active">
-                        <a href="{% url 'search:search' %}"><i class="fa fa-fw fa-bar-chart-o"></i> Search Twitter</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'sms:searchsms' %}"><i class="fa fa-fw fa-table"></i> Search SMS</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'twitterstream:tweetstream' %}"><i class="fa fa-fw fa-edit"></i> Twitter live streaming search</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'sms:sendsms' %}"><i class="fa fa-comments-o"></i> Send message</a>
-                    </li>
-
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-
-
-        </nav>
-
-
-
-    </div>
-
-
+{% block twitter_search_form %}
 
 <div id="p" class="container">
     <div class="row">
@@ -116,19 +43,6 @@
     </div>
 </div>
 
-    <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-<script language="javascript" type="text/javascript">
-     $(window).load(function() {
-     $('#loading').hide();
-  });
-</script>
-
-</body>
 {% endblock %}

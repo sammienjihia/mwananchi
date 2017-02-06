@@ -1,14 +1,162 @@
 {% extends 'accounts/base.html' %}
 
+{% block top_tiles %}
+{#<style>#}
+{#.col-xs-6:not(:last-child) {#}
+{#	border-right: 2px solid #ccc;#}
+{#    #}
+{##}
+{#}#}
+{#</style>#}
+
+    <div class="row tile_count">
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <h2 >Search Word</h2>
+          <div class="count">{{ searchword }}</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <h2 >Total Tweets</h2>
+          <div class="count">{{ tweetcount }}</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <h2 class="red">Negative Tweets</h2>
+          <div class="count red">  - {{ negtweets }}</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <h2 class="green">Positive Tweets</h2>
+          <div class="count green">  + {{ postweets }}</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <h2 >Neutral Tweets</h2>
+          <div class="count">{{ neutweets }}</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <h2 >*Neutral Tweets</h2>
+          <div class="count">{{ neutweets }}</div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block twitter_chart %}
+    <div col-md-12 col-sm-12 col-xs-12>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<!-- Additional files for the Highslide popup effect -->
+<script src="https://www.highcharts.com/samples/static/highslide-full.min.js"></script>
+<script src="https://www.highcharts.com/samples/static/highslide.config.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="https://www.highcharts.com/samples/static/highslide.css" />
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<script>
+    {% if newdata %}
+        {}
+    {% endif %}
+
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: 'Real time tweet count'
+        },
+        subtitle: {
+            text: 'Irregular time data in Highcharts JS'
+        },
+        xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: { // don't display the dummy year
+                month: '%e. %b',
+                year: '%b'
+            },
+            title: {
+                text: 'Date'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Tweet Count'
+            },
+            min: 0
+        },
+        tooltip: {
+            headerFormat: '<b>{series.name}</b><br>',
+            pointFormat: '{point.x:%e. %b}: {point.y:.2f} m'
+        },
+
+        series: [{
+            name: 'Tweet count by hashtag',
+            // Define the data points. All series have a dummy year
+            // of 1970/71 in order to be compared on the same x axis. Note
+            // that in JavaScript, months start at 0 for January, 1 for February etc.
+            data: [
+                [Date.UTC(2014, 11, 07, 09, 11, 7), 26],
+                [Date.UTC(2014, 11, 07, 09, 11, 12), 22],
+                [Date.UTC(2014, 11, 07, 09, 11, 13), 9],
+                [Date.UTC(2014, 11, 07, 09, 11, 14), 18],
+                [Date.UTC(2014, 11, 07, 09, 11, 19), 13],
+                [Date.UTC(2014, 11, 07, 09, 11, 26), 9],
+                [Date.UTC(2014, 11, 07, 09, 11, 27), 2],
+                [Date.UTC(2014, 11, 07, 09, 11, 28), 15]
+            ]
+
+        },
+
+        {
+            name: 'Tweet count by positive',
+            // Define the data points. All series have a dummy year
+            // of 1970/71 in order to be compared on the same x axis. Note
+            // that in JavaScript, months start at 0 for January, 1 for February etc.
+            data: [
+                [Date.UTC(2014, 11, 07, 09, 11, 7), 16],
+                [Date.UTC(2014, 11, 07, 09, 11, 12), 12],
+                [Date.UTC(2014, 11, 07, 09, 11, 13), 19],
+                [Date.UTC(2014, 11, 07, 09, 11, 14), 18],
+                [Date.UTC(2014, 11, 07, 09, 11, 19), 13],
+                [Date.UTC(2014, 11, 07, 09, 11, 26), 19],
+                [Date.UTC(2014, 11, 07, 09, 11, 27), 21],
+                [Date.UTC(2014, 11, 07, 09, 11, 28), 15]
+            ]
+
+        },
+
+        {
+            name: 'Tweet count by Negative',
+            // Define the data points. All series have a dummy year
+            // of 1970/71 in order to be compared on the same x axis. Note
+            // that in JavaScript, months start at 0 for January, 1 for February etc.
+            data: [
+                [Date.UTC(2014, 11, 07, 09, 11, 7), 6],
+                [Date.UTC(2014, 11, 07, 09, 11, 12), 18],
+                [Date.UTC(2014, 11, 07, 09, 11, 13), 27],
+                [Date.UTC(2014, 11, 07, 09, 11, 14), 18],
+                [Date.UTC(2014, 11, 07, 09, 11, 19), 23],
+                [Date.UTC(2014, 11, 07, 09, 11, 26), 10],
+                [Date.UTC(2014, 11, 07, 09, 11, 27), 21],
+                [Date.UTC(2014, 11, 07, 09, 11, 28), 25]
+            ]
+
+        }]
+
+
+
+    });
+});
+</script>
+
+{% endblock %}
+
 {% block main_content %}
 {% if newdata %}
-    <div col-md-12 col-sm-12 col-xs-12>
-    <div class="x_panel">
-    <div class="x_title">
-        <h2>Search Results For:  <h3>{{ searchword }}</h3></h2>
 
-        <div class="clearfix"></div>
-    </div>
+
     <div class="x_content">
     <table width="100%" class="table table-bordered table-hover table-striped dt-responsive " cellspacing="0" id="datatable-responsive">
             <thead>
@@ -46,6 +194,7 @@
     </table>
     </div>
     </div>
+
 
 
 

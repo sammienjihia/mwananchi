@@ -34,7 +34,34 @@ class Outsms(models.Model):
         verbose_name_plural = "Outsms"
 
     def __str__(self):
-        return self.receiver, self.sent_date, self.text
+        return self.receiver, self.sent_date, self.text, self.sender
+
+class Failedsms(models.Model):
+    sender = models.CharField(max_length=255)
+    receiver = models.CharField(max_length=255)
+    sent_date = models.DateTimeField(auto_now_add=True)
+    text = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = "Failedsms"
+        verbose_name_plural = "Failedsms"
+
+    def __str__(self):
+        return self.receiver, self.sent_date, self.text, self.sender
+
+
+class Blacklistsms(models.Model):
+    sender = models.CharField(max_length=255)
+    receiver = models.CharField(max_length=255)
+    sent_date = models.DateTimeField(auto_now_add=True)
+    text = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = "Blacklistsms"
+        verbose_name_plural = "Blacklistsms"
+
+    def __str__(self):
+        return self.receiver, self.sent_date, self.text, self.sender
 
 
 class Sms(models.Model):

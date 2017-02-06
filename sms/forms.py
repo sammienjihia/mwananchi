@@ -31,8 +31,8 @@ class SendsmsForm(forms.Form):
     #     ]
 
 class SmssearchForm(forms.Form):
-    searchword = forms.CharField(max_length=255, label='Enter your search word')
-    select_option = forms.ModelChoiceField(queryset=Datefilters.objects.all(), widget=forms.Select(), label='Filter With')
+    searchword = forms.CharField(max_length=255, label='Enter your search word', required=True, widget=forms.TextInput())
+    select_option = forms.ModelChoiceField(queryset=Datefilters.objects.all(), widget=forms.Select(), label='Filter With', required=True)
 
 
 

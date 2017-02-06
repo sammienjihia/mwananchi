@@ -17,53 +17,53 @@
       "values": [
         {
           "col": "data",
-          "idx": "#pinulotkalangsalupa",
+          "idx": "#np",
+          "val": 8
+        },
+        {
+          "col": "data",
+          "idx": "#ginger",
+          "val": 7
+        },
+        {
+          "col": "data",
+          "idx": "#bakusradiousa",
+          "val": 7
+        },
+        {
+          "col": "data",
+          "idx": "#warondrugs",
+          "val": 5
+        },
+        {
+          "col": "data",
+          "idx": "#maga",
+          "val": 3
+        },
+        {
+          "col": "data",
+          "idx": "#norailanonasa",
+          "val": 3
+        },
+        {
+          "col": "data",
+          "idx": "#trumpcare",
           "val": 2
         },
         {
           "col": "data",
-          "idx": "#fitness",
+          "idx": "#presidenttrump",
           "val": 2
         },
         {
           "col": "data",
-          "idx": "#podernfamily",
+          "idx": "#privacy",
           "val": 2
         },
         {
           "col": "data",
-          "idx": "#sagawards",
-          "val": 1
-        },
-        {
-          "col": "data",
-          "idx": "#mondayescapes",
-          "val": 1
-        },
-        {
-          "col": "data",
-          "idx": "#dtbyongmaprimetime",
-          "val": 1
-        },
-        {
-          "col": "data",
-          "idx": "#photoofthedayy",
-          "val": 1
-        },
-        {
-          "col": "data",
-          "idx": "#myrebelmanifesto",
-          "val": 1
-        },
-        {
-          "col": "data",
-          "idx": "#aldubdevotion",
-          "val": 1
-        },
-        {
-          "col": "data",
-          "idx": "#tglbeneaththesurface",
-          "val": 1
+          "idx": "#nbsupdates",
+          "val": 2
         }
       ]
     },

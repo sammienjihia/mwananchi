@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from search.models import Topics
 from subscribe.models import Subscribers
-from .models import Insms
+from .models import Insms, Outsms, Blacklistsms, Failedsms
 from .forms import SendsmsForm
 from django.shortcuts import render, redirect
 from mwananchi.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException
@@ -67,6 +67,9 @@ def sendsmsview (request):
                             Subscribers.objects.filter(subscribed_topic_id=subscribb_topic).values_list('mobile_number',
                                                                                                         flat=True).distinct()]
             for number in numbersto:
+
+
+
                 to = number
 
                 #message = "I'm a lumberjack and it's ok, I sleep all night and I work all day"
@@ -78,12 +81,29 @@ def sendsmsview (request):
 
                     results = gateway.sendMessage(to, message)
 
+
                     for recipient in results:
                         # status is either "Success" or "error message"
                         print 'number=%s;status=%s;messageId=%s;cost=%s' % (recipient['number'],
                                                                             recipient['status'],
                                                                             recipient['messageId'],
                                                                             recipient['cost'])
+
+                        if recipient['status'] == "Success":
+                            sentdata = Outsms(sender=request.user.id, receiver=recipient['number'], sent_date=datetime.now(), text=messagein)
+                            sentdata.save()
+
+                        elif recipient['status'] == "error message":
+                            msgerror = Failedsms(sender=request.user.id, receiver=recipient['number'],
+                                              sent_date=datetime.now(), text=messagein)
+                            msgerror.save()
+
+                        elif recipient['status'] == "User In BlackList":
+                            blacklistsms = Blacklistsms(sender=request.user.id, receiver=recipient['number'],
+                                                 sent_date=datetime.now(), text=messagein)
+                            blacklistsms.save()
+
+
                 except AfricasTalkingGatewayException, e:
                     print 'Encountered an error while sending: %s' % str(e)
 
