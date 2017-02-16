@@ -1,6 +1,6 @@
 from django import forms
 from models import Sms
-from search.models import Topics, Datefilters
+from twittersearch.models import Topics, Datefilters
 from django.contrib.auth.models import User
 
 
@@ -12,7 +12,7 @@ class SendsmsForm(forms.Form):
     subscribed_topic = forms.ModelChoiceField(queryset=User.objects.none(),  label='Please select your name')
     message = forms.CharField(widget=forms.Textarea, max_length=255, label='Please enter your message')
     # choices = forms.ModelChoiceField(queryset=Searches.objects.none(),
-    #                                  label='select search')
+    #                                  label='select twittersearch')
 
 
     def __init__(self, request, *args, **kwargs):
@@ -31,7 +31,7 @@ class SendsmsForm(forms.Form):
     #     ]
 
 class SmssearchForm(forms.Form):
-    searchword = forms.CharField(max_length=255, label='Enter your search word', required=True, widget=forms.TextInput())
+    searchword = forms.CharField(max_length=255, label='Enter your twittersearch word', required=True, widget=forms.TextInput())
     select_option = forms.ModelChoiceField(queryset=Datefilters.objects.all(), widget=forms.Select(), label='Filter With', required=True)
 
 

@@ -48,7 +48,7 @@ $(document).ready( function () {
 	
 	
 	oTest.fnTest( 
-		"Blank search has a no (separator) inserted",
+		"Blank twittersearch has a no (separator) inserted",
 		function () {
 			oSession.fnRestore();
 			oTable = $('#example').dataTable( {

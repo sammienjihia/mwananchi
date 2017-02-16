@@ -418,7 +418,7 @@ this.fnDeleteRow = function( mTarget, fnCallBack, bRedraw )
 		}
 	}
 	
-	/* Remove the target row from the search array */
+	/* Remove the target row from the twittersearch array */
 	var iDisplayIndex = $.inArray( iAODataIndex, oSettings.aiDisplay );
 	oSettings.asDataSearch.splice( iDisplayIndex, 1 );
 	
@@ -1231,8 +1231,8 @@ this.fnUpdate = function( mData, mRow, iColumn, bRedraw, bAction )
 		}
 	}
 	
-	/* Modify the search index for this row (strictly this is likely not needed, since fnReDraw
-	 * will rebuild the search array - however, the redraw might be disabled by the user)
+	/* Modify the twittersearch index for this row (strictly this is likely not needed, since fnReDraw
+	 * will rebuild the twittersearch array - however, the redraw might be disabled by the user)
 	 */
 	var iDisplayIndex = $.inArray( iRow, oSettings.aiDisplay );
 	oSettings.asDataSearch[iDisplayIndex] = _fnBuildSearchRow(

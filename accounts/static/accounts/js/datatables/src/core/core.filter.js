@@ -72,7 +72,7 @@ function _fnFeatureHtmlFilter ( oSettings )
 /**
  * Filter the table using both the global filter and column based filtering
  *  @param {object} oSettings dataTables settings object
- *  @param {object} oSearch search information
+ *  @param {object} oSearch twittersearch information
  *  @param {int} [iForce] force a research of the master array (1) or not (undefined or 0)
  *  @memberof DataTable#oApi
  */
@@ -119,7 +119,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 	_fnCalculateEnd( oSettings );
 	_fnDraw( oSettings );
 	
-	/* Rebuild search array 'offline' */
+	/* Rebuild twittersearch array 'offline' */
 	_fnBuildSearchArray( oSettings, 0 );
 }
 
@@ -162,7 +162,7 @@ function _fnFilterCustom( oSettings )
  *  @param {object} oSettings dataTables settings object
  *  @param {string} sInput string to filter on
  *  @param {int} iColumn column to filter
- *  @param {bool} bRegex treat search string as a regular expression or not
+ *  @param {bool} bRegex treat twittersearch string as a regular expression or not
  *  @param {bool} bSmart use smart filtering or not
  *  @param {bool} bCaseInsensitive Do case insenstive matching or not
  *  @memberof DataTable#oApi
@@ -229,7 +229,7 @@ function _fnFilter( oSettings, sInput, iForce, bRegex, bSmart, bCaseInsensitive 
 	else
 	{
 		/*
-		 * We are starting a new search or the new search string is smaller 
+		 * We are starting a new twittersearch or the new twittersearch string is smaller 
 		 * then the old one (i.e. delete). Search from the master array
 	 	 */
 		if ( oSettings.aiDisplay.length == oSettings.aiDisplayMaster.length ||
@@ -239,10 +239,10 @@ function _fnFilter( oSettings, sInput, iForce, bRegex, bSmart, bCaseInsensitive 
 			/* Nuke the old display array - we are going to rebuild it */
 			oSettings.aiDisplay.splice( 0, oSettings.aiDisplay.length);
 			
-			/* Force a rebuild of the search array */
+			/* Force a rebuild of the twittersearch array */
 			_fnBuildSearchArray( oSettings, 1 );
 			
-			/* Search through all records to populate the search array
+			/* Search through all records to populate the twittersearch array
 			 * The the oSettings.aiDisplayMaster and asDataSearch arrays have 1 to 1 
 			 * mapping
 			 */
@@ -256,8 +256,8 @@ function _fnFilter( oSettings, sInput, iForce, bRegex, bSmart, bCaseInsensitive 
 	  }
 	  else
 		{
-	  	/* Using old search array - refine it - do it this way for speed
-	  	 * Don't have to search the whole master array again
+	  	/* Using old twittersearch array - refine it - do it this way for speed
+	  	 * Don't have to twittersearch the whole master array again
 			 */
 	  	var iIndexCorrector = 0;
 	  	
@@ -276,7 +276,7 @@ function _fnFilter( oSettings, sInput, iForce, bRegex, bSmart, bCaseInsensitive 
 
 
 /**
- * Create an array which can be quickly search through
+ * Create an array which can be quickly twittersearch through
  *  @param {object} oSettings dataTables settings object
  *  @param {int} iMaster use the master data array - optional
  *  @memberof DataTable#oApi
@@ -307,7 +307,7 @@ function _fnBuildSearchArray ( oSettings, iMaster )
 /**
  * Create a searchable string from a single data row
  *  @param {object} oSettings dataTables settings object
- *  @param {array} aData Row data array to use for the data to search
+ *  @param {array} aData Row data array to use for the data to twittersearch
  *  @memberof DataTable#oApi
  */
 function _fnBuildSearchRow( oSettings, aData )
@@ -330,7 +330,7 @@ function _fnBuildSearchRow( oSettings, aData )
 
 /**
  * Build a regular expression object suitable for searching a table
- *  @param {string} sSearch string to search for
+ *  @param {string} sSearch string to twittersearch for
  *  @param {bool} bRegex treat as a regular expression or not
  *  @param {bool} bSmart perform smart filtering or not
  *  @param {bool} bCaseInsensitive Do case insensitive matching or not
@@ -356,10 +356,10 @@ function _fnFilterCreateSearch( sSearch, bRegex, bSmart, bCaseInsensitive )
 
 
 /**
- * Convert raw data into something that the user can search on
+ * Convert raw data into something that the user can twittersearch on
  *  @param {string} sData data to be modified
  *  @param {string} sType data type
- *  @returns {string} search string
+ *  @returns {string} twittersearch string
  *  @memberof DataTable#oApi
  */
 function _fnDataToSearch ( sData, sType )

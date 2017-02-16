@@ -9,7 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0002_auto_20160924_1002'),
+        ('twittersearch', '0002_auto_20160924_1002'),
         ('sms', '0002_auto_20160928_0931'),
     ]
 
@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='Sms',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('subscribed_topic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='search.Topics')),
+                ('subscribed_topic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='twittersearch.Topics')),
             ],
             options={
                 'db_table': 'Sms',

@@ -15,53 +15,53 @@
       "values": [
         {
           "col": "data",
-          "idx": "uhuru",
-          "val": 76
+          "idx": "peter",
+          "val": 63
         },
         {
           "col": "data",
-          "idx": "kenyatta",
-          "val": 14
+          "idx": "de",
+          "val": 22
         },
         {
           "col": "data",
-          "idx": "political",
-          "val": 13
-        },
-        {
-          "col": "data",
-          "idx": "president",
-          "val": 11
-        },
-        {
-          "col": "data",
-          "idx": "times",
-          "val": 10
-        },
-        {
-          "col": "data",
-          "idx": "ft",
+          "idx": "la",
           "val": 8
         },
         {
           "col": "data",
-          "idx": "odinga",
-          "val": 7
+          "idx": "le",
+          "val": 5
         },
         {
           "col": "data",
-          "idx": "tunein:",
-          "val": 7
+          "idx": "que",
+          "val": 5
         },
         {
           "col": "data",
-          "idx": "bakus",
-          "val": 7
+          "idx": "one",
+          "val": 5
         },
         {
           "col": "data",
-          "idx": "listen",
-          "val": 7
+          "idx": "el",
+          "val": 4
+        },
+        {
+          "col": "data",
+          "idx": "les",
+          "val": 3
+        },
+        {
+          "col": "data",
+          "idx": "va",
+          "val": 3
+        },
+        {
+          "col": "data",
+          "idx": "las",
+          "val": 3
         }
       ]
     },

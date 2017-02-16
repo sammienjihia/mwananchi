@@ -309,8 +309,8 @@ DataTable.models.oSettings = {
 	"asDataSearch": [],
 	
 	/**
-	 * Store the applied global search information in case we want to force a 
-	 * research or compare the old search to a new one.
+	 * Store the applied global twittersearch information in case we want to force a 
+	 * research or compare the old twittersearch to a new one.
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.
 	 *  @namespace
@@ -319,7 +319,7 @@ DataTable.models.oSettings = {
 	"oPreviousSearch": {},
 	
 	/**
-	 * Store the applied search for each column - see 
+	 * Store the applied twittersearch for each column - see 
 	 * {@link DataTable.models.oSearch} for the format that is used for the
 	 * filtering information for each column.
 	 *  @type array

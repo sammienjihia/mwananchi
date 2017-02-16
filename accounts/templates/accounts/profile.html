@@ -1,0 +1,165 @@
+{% extends 'accounts/base.html' %}
+
+
+{% block profile_count %}
+
+<div class="row tile_count">
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <h2 >Subscribers</h2>
+      <div class="count">{{ subscribers_count }}</div>
+    </div>
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <h2 >Outbox</h2>
+      <div class="count">{{ sentsms_count }}</div>
+    </div>
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <h2 class="red">Failed sms</h2>
+      <div class="count red">  - {{ failedsms_count }}</div>
+    </div>
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <h2 class="green">Outbox</h2>
+      <div class="count green">  + {{ sentsms_count }}</div>
+    </div>
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <h2 >Blacklist Sms</h2>
+      <div class="count">{{ blacklistsms_count }}</div>
+    </div>
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <h2 >Inbox</h2>
+      <div class="count">{{ neutweets }}</div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block profile_data %}
+
+
+{% if sentsms %}
+  <div class="col-md-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Sent sms </h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+            <table width="100%" class="table table-bordered table-hover table-striped dt-responsive "  id="datatable-responsive2">
+                    <thead>
+                        <tr>
+                            <th>Receiver</th>
+                            <th>Text</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                {% for sms in sentsms %}
+                            <tr>
+                                <td>{{ sms.receiver }}</td>
+                                <td>{{ sms.text }}</td>
+                                <td class="nowrap">{{ sms.sent_date }}</td>
+                            </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+      </div>
+    </div>
+  </div>
+<script>
+    $(document).ready( function () {
+        $('#datatable-responsive2').DataTable();
+    } );
+</script>
+{% else %}
+    <h3>Your Outbox is empty</h3>
+{% endif %}
+
+
+
+
+
+
+{% if blacklistsms %}
+  <div class="col-md-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Blacklisted Sms </h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+            <table width="100%" class="table table-bordered table-hover table-striped dt-responsive "  id="datatable-responsive1">
+                    <thead>
+                        <tr>
+                            <th>Receiver</th>
+                            <th>Text</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                {% for sms in blacklistsms %}
+                            <tr>
+                                <td>{{ sms.receiver }}</td>
+                                <td>{{ sms.text }}</td>
+                                <td class="nowrap">{{ sms.sent_date }}</td>
+                            </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+      </div>
+    </div>
+  </div>
+<script>
+    $(document).ready( function () {
+        $('#datatable-responsive1').DataTable();
+    } );
+</script>
+{% else %}
+    <h3>You have no blacklisted sms</h3>
+{% endif %}
+
+
+
+
+{% if failedsms %}
+  <div class="col-md-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Blacklisted Sms </h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+            <table width="100%" class="table table-bordered table-hover table-striped dt-responsive "  id="datatable-responsive1">
+                    <thead>
+                        <tr>
+                            <th>Receiver</th>
+                            <th>Text</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                {% for sms in failedsms %}
+                            <tr>
+                                <td>{{ sms.receiver }}</td>
+                                <td>{{ sms.text }}</td>
+                                <td class="nowrap">{{ sms.sent_date }}</td>
+                            </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+      </div>
+    </div>
+  </div>
+<script>
+    $(document).ready( function () {
+        $('#datatable-responsive1').DataTable();
+    } );
+</script>
+{% else %}
+    <h3>No sms failed to send</h3>
+{% endif %}
+
+
+{% endblock %}

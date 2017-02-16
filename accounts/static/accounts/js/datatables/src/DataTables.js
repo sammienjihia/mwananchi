@@ -141,7 +141,7 @@
 	 */
 	DataTable.models = {};
 	require('model.ext.js');
-	require('model.search.js');
+	require('model.twittersearch.js');
 	require('model.row.js');
 	require('model.column.js');
 	require('model.defaults.js');

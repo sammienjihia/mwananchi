@@ -5,7 +5,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..",
 import time
 import urllib
 from django.template import loader
-from search.searchfunction2 import getusersearchword
+from twittersearch.searchfunction2 import getusersearchword
 from django.http import StreamingHttpResponse
 import json
 from django.core import serializers
@@ -108,7 +108,7 @@ def tweetstream(request):
         # Another way to mine Twitter is to set up a stream.
         # A Twitter stream maintains an open connection to Twitter,
         # and waits for data to pour in.
-        # Twitter.search() allows us to look at older tweets,
+        # Twitter.twittersearch() allows us to look at older tweets,
         # Twitter.stream() gives us the most recent tweets.
 
         # It might take a few seconds to set up the stream.

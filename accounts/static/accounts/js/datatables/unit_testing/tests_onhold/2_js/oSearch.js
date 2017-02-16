@@ -36,7 +36,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnTest( 
-		"New search will kill old one",
+		"New twittersearch will kill old one",
 		function () {
 			oTable.fnFilter("Opera");
 		},

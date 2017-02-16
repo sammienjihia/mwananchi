@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from search.models import Topics
+from twittersearch.models import Topics
 from subscribe.models import Subscribers
 from .models import Insms, Outsms, Blacklistsms, Failedsms
 from .forms import SendsmsForm
@@ -11,30 +11,28 @@ from sendtext import receivedsms, smscount, posisms, negsms, neutsms
 from sendtext import getusersearchword
 from .forms import SmssearchForm
 from datetime import datetime, timedelta
+from sequence import sequencematch
 from django.contrib.auth.decorators import login_required
 
-
-
-
 # Create your views here.
+searchingword = ""
+option = ""
 
-def smssearchwordview(newsearchword1):
+def smssearchwordview(request):
     global searchingword, option
-    searchingword = ""
-    option = ""
     title = "Search"
     template = loader.get_template('sms/smssearch.html')
-    form = SmssearchForm()
-    searchingword, option = getusersearchword(newsearchword1)
-    print searchingword
-    print option
-    if searchingword:
+    form = SmssearchForm(request.POST or None)
+    #searchingword, option = getusersearchword(searchingword)
+    if form.is_valid():
+        searchingword = request.POST['searchword']
+        option = request.POST['select_option']
         return redirect("insms/")
     else:
         print "getusersearchword() returned an empty object"
 
     context = {"form": form, "title": title}
-    return HttpResponse( template.render(context, newsearchword1))
+    return HttpResponse( template.render(context, request))
 
 
 
@@ -115,39 +113,41 @@ def sendsmsview (request):
 def insmsview(messages1):
     global messages3
     print option
+    receivedsms()
     messages3 = ""
 
     if option == "1":
         N = 30000
         start_date = datetime.now()
         date_N_days_ago = datetime.now() - timedelta(days=N)
-        messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date))
+        messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date)).order_by('-date')
 
     elif option == "2":
         print "hahahahhahahah"
         N = 7
         start_date = datetime.now()
         date_N_days_ago = datetime.now() - timedelta(days=N)
-        messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date))
+        messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date)).order_by('-date')
     elif option =="3":
         N = 30
         start_date = datetime.now()
         date_N_days_ago = datetime.now() - timedelta(days=N)
-        messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date))
+        messages3 = Insms.objects.filter(keyword=searchingword, date__range=(date_N_days_ago, start_date)).order_by('-date')
     elif option =="4":
         N = 360
         start_date = datetime.now()
         date_N_days_ago = datetime.now() - timedelta(days=N)
-        messages3 = Insms.objects.filter(keyword=searchingword.lower(), date__range=(date_N_days_ago, start_date))
+        #messages3 = Insms.objects.filter(keyword=searchingword.lower(), date__range=(date_N_days_ago, start_date)).order_by('-date')
+        messages3 = sequencematch(searchingword)
     else:
         print "you have not selected anything"
 
-    #messages3 = Insms.objects.filter(keyword=searchingword)
+    #messages3 = Insms.objects.filter(keyword=searchingword).order_by('-date')
+
     smscount1 = smscount(messages3)
     posisms1 = posisms(messages3)
     negsms1 = negsms(messages3)
     neutsms1 = neutsms(messages3)
-    messages2 = receivedsms(messages1)
     template = loader.get_template('sms/results.html')
     context = {"inmessages": messages3, "smscount": smscount1, "posisms": posisms1, "negsms": negsms1, "neutsms": neutsms1}
     return HttpResponse(template.render(context))

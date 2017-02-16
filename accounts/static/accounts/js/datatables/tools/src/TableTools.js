@@ -1728,7 +1728,7 @@ TableTools.prototype = {
 	 *  @method  _fnBoundData
 	 *  @param   {String} sData data to bound
 	 *  @param   {String} sBoundary bounding char(s)
-	 *  @param   {RegExp} regex search for the bounding chars - constructed outside for efficiency
+	 *  @param   {RegExp} regex twittersearch for the bounding chars - constructed outside for efficiency
 	 *			 in the loop
 	 *  @returns {String} bound data
 	 *  @private 

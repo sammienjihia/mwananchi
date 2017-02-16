@@ -3,7 +3,7 @@
 
 /**
  * Template object for the way in which DataTables holds information about
- * search information for the global filter and individual column filters.
+ * twittersearch information for the global filter and individual column filters.
  *  @namespace
  */
 DataTable.models.oSearch = {
@@ -15,14 +15,14 @@ DataTable.models.oSearch = {
 	"bCaseInsensitive": true,
 
 	/**
-	 * Applied search term
+	 * Applied twittersearch term
 	 *  @type string
 	 *  @default <i>Empty string</i>
 	 */
 	"sSearch": "",
 
 	/**
-	 * Flag to indicate if the search term should be interpreted as a
+	 * Flag to indicate if the twittersearch term should be interpreted as a
 	 * regular expression (true) or not (false) and therefore and special
 	 * regex characters escaped.
 	 *  @type boolean

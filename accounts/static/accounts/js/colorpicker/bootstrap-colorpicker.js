@@ -609,7 +609,7 @@
             this.container = (this.options.container === true) ? this.element : this.options.container;
             this.container = (this.container !== false) ? $(this.container) : false;
 
-            // Is the element an input? Should we search inside for any input?
+            // Is the element an input? Should we twittersearch inside for any input?
             this.input = this.element.is('input') ? this.element : (this.options.input ?
                 this.element.find(this.options.input) : false);
             if (this.input && (this.input.length === 0)) {

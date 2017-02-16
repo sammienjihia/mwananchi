@@ -20,7 +20,7 @@ class SubscriptionForm(forms.ModelForm):
 
     def clean_mobile_number(self):
         mobile_number = self.cleaned_data.get('mobile_number')
-        if Subscribers.objects.filter(mobile_number=self.cleaned_data.get('mobile_number')).count():
+        if Subscribers.objects.filter(mobile_number=self.cleaned_data.get('mobile_number')):
             raise forms.ValidationError("This mobile number is already subscribed")
         return mobile_number
 

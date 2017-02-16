@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'twitterstream.apps.TwitterstreamConfig',
     'subscribe.apps.SubscribeConfig',
     'sms.apps.SmsConfig',
-    'search.apps.SearchConfig',
+    'twittersearch.apps.SearchConfig',
     'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -130,3 +131,11 @@ STATIC_URL = '/static/'
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+# CELERY STUFF
+BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Africa/Nairobi'

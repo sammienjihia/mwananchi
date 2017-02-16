@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from search.models import Topics
+from twittersearch.models import Topics
 from django.contrib.auth.models import User
 
 

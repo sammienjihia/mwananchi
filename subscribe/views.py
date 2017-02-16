@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render
-from search.models import Topics
+from twittersearch.models import Topics
 from .forms import SubscriptionForm
 from django.shortcuts import render, redirect
 

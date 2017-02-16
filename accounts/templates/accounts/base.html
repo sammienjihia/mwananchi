@@ -19,8 +19,8 @@
 {#    <script type="text/javascript" src="{% static 'accounts/js/jquery.dataTables.min.js' %}"></script>#}
 {#    <script type="text/javascript" src="{% static 'accounts/js/dataTables.bootstrap.min.js' %}"></script>#}
 {#    <script type="text/javascript" src="{% static 'accounts/js/bootstrap.min.js' %}"></script>#}
-{#    <script type="text/javascript" src="{% static 'search/js/samepage.js' %}"></script>#}
-{#    <script type="text/javascript" src="{% static 'search/js/Chart.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'twittersearch/js/samepage.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'twittersearch/js/Chart.js' %}"></script>#}
 {#    <script src="{% static 'twitterstream/js/highcharts.js' %}"></script>#}
 {#    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>#}
 {#    <script src="http://d3js.org/topojson.v1.min.js"></script>#}
@@ -95,13 +95,13 @@
                                     <a href="{% url 'accounts:index' %}"><i class="fa fa-home"></i> Home</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'search:search' %}"><i class="fa fa-twitter"></i> Search from Twitter </a>
+                                    <a href="{% url 'twittersearch:twittersearch' %}"><i class="fa fa-twitter"></i> Search from Twitter </a>
                                 </li>
                                 <li>
                                     <a href="{% url 'sms:searchsms' %}"><i class="fa fa-envelope"></i> Search from sms </a>
                                 </li>
                                 <li>
-                                    <a><i class="fa fa-user"></i> My profile </a>
+                                    <a href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> My profile </a>
                                 </li>
                                 <li>
                                     <a><i class="fa fa-bar-chart-o"></i> Stream Tweeter Feed </a>
@@ -167,7 +167,7 @@
 
                             <li class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                                 <a class="input-group">
-                                    <form action=" {% url 'search:search' %}" method="post" onsubmit="return checkforblank()" id="form_data" enctype="multipart/form-data">
+                                    <form action=" {% url 'twittersearch:twittersearch' %}" method="post" onsubmit="return checkforblank()" id="form_data" enctype="multipart/form-data">
                                         {% csrf_token %}
                                           <div class="input-group">
                                             <input type="text" name='searchword' id="searchword" class="form-control" placeholder="Search">
@@ -212,11 +212,19 @@
 
 
                 {% endblock %}
+
+                {% block profile_count %}
+
+                {% endblock %}
                 </div>
                 <!-- /top tiles -->
 
                 <div class="row">
                 {% block twitter_chart %}
+
+                {% endblock %}
+
+                {% block profile_data %}
 
                 {% endblock %}
 
@@ -228,7 +236,7 @@
 
                 <div class="row">
 
-                </div>
+
                 {% block main_content %}
                 {% endblock %}
 
@@ -240,6 +248,10 @@
 
                 {% block sms_send_form %}
                 {% endblock %}
+
+                {% block sms_search_results %}
+                {% endblock %}
+                </div>
 
                 <!-- footer content -->
 
@@ -312,7 +324,7 @@
         function checkforblank() {
 
             if (document.getElementById('searchword').value == "") {
-                alert('Please enter the search word');
+                alert('Please enter the twittersearch word');
                 document.getElementById('searchword').style.borderColor = "red";
                 return false;
             }
@@ -331,7 +343,7 @@
 {#        $('#right_col').hide();#}
 {#        $.ajax({#}
 {#            type:'POST',#}
-{#            url:'{% url 'search:search' %}',#}
+{#            url:'{% url 'twittersearch:twittersearch' %}',#}
 {#            data:{#}
 {#                searchword:$('#searchword').val(),#}
 {#                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()#}

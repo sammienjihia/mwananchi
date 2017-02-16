@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     url(r'^admin/', admin.site.urls),
-    url(r'^search/', include('search.urls')),
+    url(r'^twittersearch/', include('twittersearch.urls')),
     url(r'^stream/', include('twitterstream.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^subscribe/', include('subscribe.urls')),

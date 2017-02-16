@@ -13,7 +13,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnTest( 
-		"Remove the first data row, and check that hte search data has been updated",
+		"Remove the first data row, and check that hte twittersearch data has been updated",
 		function () { oTable.fnDeleteRow( 0 ); },
 		function () { return oSettings.asDataSearch.join(' ').match(/4.0/g).length == 2; }
 	);
